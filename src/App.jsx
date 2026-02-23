@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
+import Home from './pages/Home';
 import Info from './pages/Info';
 import Report from './pages/Report';
 import Status from './pages/Status';
@@ -10,7 +11,7 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<Navigate to="/info" replace />} />
+                <Route index element={<Home />} />
                 <Route path="report" element={<Report />} />
                 <Route path="status" element={<Status />} />
                 <Route path="info" element={<Info />} />
