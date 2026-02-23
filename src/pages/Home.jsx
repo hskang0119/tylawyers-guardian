@@ -28,10 +28,10 @@ const Home = () => {
                     </p>
                     <div className="hero-buttons">
                         <button className="btn-primary" onClick={() => navigate('/report')}>
-                            지금 바로 상담하기 <ArrowRight size={20} style={{ display: 'inline', marginLeft: '8px', verticalAlign: 'text-bottom' }} />
+                            신고서 작성하기 <ArrowRight size={20} style={{ display: 'inline', marginLeft: '8px', verticalAlign: 'text-bottom' }} />
                         </button>
                         <button className="btn-secondary" onClick={() => navigate('/info')}>
-                            서비스 안내 보기
+                            신고안내 보기
                         </button>
                     </div>
                 </div>
