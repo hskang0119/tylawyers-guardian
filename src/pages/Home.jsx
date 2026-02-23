@@ -4,7 +4,8 @@ import {
     Shield, UserCheck, Clock,
     MessageSquareWarning, Search, Scale, FileCheck,
     Building2, Users, Laptop, Gavel,
-    Phone, MessageCircle, ArrowRight
+    Phone, MessageCircle, ArrowRight,
+    PenTool, ShieldAlert, ClipboardList
 } from 'lucide-react';
 import './Home.css';
 
@@ -24,7 +25,7 @@ const Home = () => {
                         법무법인 티와이로이어스 인권상담신고센터
                     </h1>
                     <p className="hero-subheadline">
-                        철저한 익명 보장과 전문 변호사의 1:1 밀착 대응으로<br />당신의 일상을 보호합니다.
+                        외부 전문기관 법무법인 티와이로이어스가 신고 접수 및 조사를 통해<br />고객사 임직원의 인권을 보호합니다.
                     </p>
                     <div className="hero-buttons">
                         <button className="btn-primary" onClick={() => navigate('/report')}>
@@ -65,27 +66,33 @@ const Home = () => {
             {/* Section 3: Service Process */}
             <section className="process-section">
                 <div className="section-wrapper">
-                    <h2 className="process-title" style={{ color: "var(--white)" }}>TY Lawyers Guardian 프로세스</h2>
+                    <h2 className="process-title" style={{ color: "var(--white)" }}>신고 처리 과정</h2>
                     <div className="process-steps">
                         <div className="step-card">
-                            <div className="step-number"><MessageSquareWarning size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>익명 상담 접수</h3>
-                            <p className="step-desc">간편한 인터페이스로 흔적 없이<br />안전하게 접수합니다.</p>
+                            <div className="step-number"><PenTool size={28} color="white" /></div>
+                            <h3 className="step-title" style={{ color: "var(--white)" }}>신고접수</h3>
+                            <p className="step-desc">안전한 채널을 통한 익명<br />신고 내용 접수</p>
+                        </div>
+
+                        <div className="step-card">
+                            <div className="step-number"><ShieldAlert size={28} color="white" /></div>
+                            <h3 className="step-title" style={{ color: "var(--white)" }}>기초조사</h3>
+                            <p className="step-desc">피해자 임시 보호 조치 및<br />기초 사실관계 파악</p>
                         </div>
                         <div className="step-card">
-                            <div className="step-number"><Search size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>상황 분석 및 배정</h3>
-                            <p className="step-desc">사안의 경중을 파악하고<br />최적의 전담 변호사를 배정합니다.</p>
-                        </div>
-                        <div className="step-card">
-                            <div className="step-number"><Scale size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>맞춤형 전략 수립</h3>
-                            <p className="step-desc">의뢰인의 피해를 최소화하는<br />맞춤형 법률 대응 전략을 세웁니다.</p>
+                            <div className="step-number"><ClipboardList size={28} color="white" /></div>
+                            <h3 className="step-title" style={{ color: "var(--white)" }}>심층조사</h3>
+                            <p className="step-desc">관련자 심층 면담 및<br />객관적 증거 수집</p>
                         </div>
                         <div className="step-card">
                             <div className="step-number"><FileCheck size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>진행 상황 보고 완료</h3>
-                            <p className="step-desc">실시간으로 결과를 확인하고<br />안전하게 사후 케어를 받습니다.</p>
+                            <h3 className="step-title" style={{ color: "var(--white)" }}>결과보고</h3>
+                            <p className="step-desc">조사 내용 기반의<br />종합적인 결과 보고서 작성</p>
+                        </div>
+                        <div className="step-card">
+                            <div className="step-number"><Scale size={28} color="white" /></div>
+                            <h3 className="step-title" style={{ color: "var(--white)" }}>구제조치</h3>
+                            <p className="step-desc">징계 등 후속 조치 및<br />피해 회복 지원</p>
                         </div>
                     </div>
                 </div>
@@ -97,50 +104,26 @@ const Home = () => {
                     <h2 className="section-title">주요 보호 영역</h2>
                     <div className="areas-grid">
                         <div className="area-item">
-                            <div className="area-icon"><Building2 size={28} /></div>
-                            <div className="area-info">
-                                <h3>조직 내 부정비리</h3>
-                                <p>횡령, 배임, 금품 수수 등 기업 및 기관 내 주요 비위 행위 대응</p>
-                            </div>
-                        </div>
-                        <div className="area-item">
                             <div className="area-icon"><Users size={28} /></div>
                             <div className="area-info">
-                                <h3>직장 내 괴롭힘 & 성희롱</h3>
-                                <p>조직 문화 훼손 행위에 대한 익명 제보 및 안전한 진상 조사</p>
+                                <h3>직장내성희롱&성폭행</h3>
+                                <p>조직 내 발생할 수 있는 성적 굴욕감, 혐오감 유발 행위 및 성범죄 피해 구제</p>
                             </div>
                         </div>
                         <div className="area-item">
-                            <div className="area-icon"><Laptop size={28} /></div>
+                            <div className="area-icon"><MessageSquareWarning size={28} /></div>
                             <div className="area-info">
-                                <h3>디지털 범죄 및 정보 유출</h3>
-                                <p>영업 비밀 누설 및 디지털 기술을 이용한 신종 범죄 대응 체계</p>
+                                <h3>직장내괴롭힘</h3>
+                                <p>지위나 관계의 우위를 이용한 신체적, 정신적 고통 유발 행위 조사 및 대응</p>
                             </div>
                         </div>
                         <div className="area-item">
-                            <div className="area-icon"><Gavel size={28} /></div>
+                            <div className="area-icon"><Scale size={28} /></div>
                             <div className="area-info">
-                                <h3>일반 민사/형사 법률 분쟁</h3>
-                                <p>개인 간의 갈등 및 법적 분쟁을 통합적으로 관리하고 보호</p>
+                                <h3>기타인권침해</h3>
+                                <p>부당 인사, 차별 대우 등 기타 부조리 및 조직 내 인권 침해 사안 전반 처리</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 5: Final CTA */}
-            <section className="cta-section">
-                <div className="cta-box">
-                    <h2 className="cta-headline">혼자 고민하지 마세요.<br />TY Lawyers Guardian이 함께합니다.</h2>
-                    <div className="cta-actions">
-                        <button className="btn-white" onClick={() => window.location.href = "tel:02-1234-5678"}>
-                            <Phone size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
-                            긴급 보호 요청
-                        </button>
-                        <button className="btn-outline-white" onClick={() => navigate('/report')}>
-                            <MessageCircle size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
-                            온라인 익명 상담
-                        </button>
                     </div>
                 </div>
             </section>

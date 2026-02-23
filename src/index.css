@@ -3,11 +3,14 @@
 
 :root {
   /* Colors - based on TY Lawyers brand */
-  --color-primary: #0F2C59; /* Trustworthy Dark Blue */
-  --color-secondary: #A16207; /* Warm Gold from recent updates */
-  --color-accent: #E8F0FE; /* Light blue for subtle backgrounds */
+  --color-primary: #0F2C59;
+  /* Trustworthy Dark Blue */
+  --color-secondary: #A16207;
+  /* Warm Gold from recent updates */
+  --color-accent: #E8F0FE;
+  /* Light blue for subtle backgrounds */
   --color-white: #FFFFFF;
-  
+
   /* Neutral Colors */
   --color-text-main: #1A1A1A;
   --color-text-muted: #666666;
@@ -49,6 +52,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 a {
@@ -86,8 +91,15 @@ ul {
 
 /* Modern animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
