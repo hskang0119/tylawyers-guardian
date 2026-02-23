@@ -1,0 +1,24 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
+import Info from './pages/Info';
+import Report from './pages/Report';
+import Status from './pages/Status';
+import Contact from './pages/Contact';
+import Partner from './pages/Partner';
+
+function App() {
+    return (
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Navigate to="/info" replace />} />
+                <Route path="report" element={<Report />} />
+                <Route path="status" element={<Status />} />
+                <Route path="info" element={<Info />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="partner" element={<Partner />} />
+            </Route>
+        </Routes>
+    );
+}
+
+export default App;
