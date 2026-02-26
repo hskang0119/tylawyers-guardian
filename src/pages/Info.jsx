@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FileEdit, FileSearch, Users, ClipboardCheck, ShieldCheck, Shield, ChevronRight } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Info = () => {
-    const [activeTab, setActiveTab] = useState('method');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'method';
+
+    const handleTabChange = (tab) => {
+        setSearchParams({ tab });
+    };
 
     return (
         <div style={styles.container}>
@@ -13,19 +19,19 @@ const Info = () => {
             <div style={styles.navigatorWrapper}>
                 <div style={styles.navigatorContainer}>
                     <button
-                        onClick={() => setActiveTab('method')}
+                        onClick={() => handleTabChange('method')}
                         style={{ ...styles.navButton, ...(activeTab === 'method' ? styles.navButtonActive : {}) }}
                     >
                         신고방법
                     </button>
                     <button
-                        onClick={() => setActiveTab('procedure')}
+                        onClick={() => handleTabChange('procedure')}
                         style={{ ...styles.navButton, ...(activeTab === 'procedure' ? styles.navButtonActive : {}) }}
                     >
                         사건처리절차
                     </button>
                     <button
-                        onClick={() => setActiveTab('faq')}
+                        onClick={() => handleTabChange('faq')}
                         style={{ ...styles.navButton, ...(activeTab === 'faq' ? styles.navButtonActive : {}) }}
                     >
                         자주묻는질문
