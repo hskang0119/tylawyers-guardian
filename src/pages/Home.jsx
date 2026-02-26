@@ -93,6 +93,59 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Feature Cards Section moved from Info.jsx */}
+            <section className="section bg-light" style={{ padding: '60px 0', backgroundColor: '#f8fafc' }}>
+                <div className="container">
+                    <div style={{
+                        textAlign: 'center',
+                        maxWidth: '800px',
+                        margin: '0 auto 60px',
+                    }}>
+                        <h2 style={{
+                            fontSize: '36px',
+                            fontWeight: 700,
+                            color: 'var(--color-text-main)',
+                            marginBottom: '20px',
+                        }}>신고방법</h2>
+                        <p style={{
+                            fontSize: '18px',
+                            color: 'var(--color-text-muted)',
+                            lineHeight: 1.6,
+                        }}>
+                            <strong>인권상담신고센터</strong>는 조직의 건강한 문화를 위해 외부 독립 기관(법무법인 티와이로이어스)이 운영하는 안전한 신고 채널입니다.<br />
+                            누구나 안심하고 직장 내 발생하는 부조리를 신고할 수 있도록 철저한 익명성과 정보 보안을 최우선으로 합니다.
+                        </p>
+                    </div>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                        gap: '32px',
+                    }}>
+                        <FeatureCard
+                            number="01"
+                            title="독립적인 외부 기관 운영"
+                            description="사내 부서가 아닌 법무법인 티와이로이어스가 직접 접수하고 1차 검토를 진행하여 공정성과 객관성을 확보합니다."
+                        />
+                        <FeatureCard
+                            number="02"
+                            title="철저한 신분 보장"
+                            description="익명 신고 시스템 및 암호화 기술을 적용하여 신고자의 IP나 개인 식별 정보가 조직에 절대 유출되지 않습니다."
+                        />
+                        <FeatureCard
+                            number="03"
+                            title="전문 변호사의 직접 검토"
+                            description="접수된 내용은 당 법무법인의 전문 변호사가 직접 법률적 관점에서 검토하고 안전한 처리 방향을 제시합니다."
+                        />
+                        <FeatureCard
+                            number="04"
+                            title="투명한 진행 절차"
+                            description="신고자는 접수번호와 비밀번호를 통해 안전하게 진행 상황을 조회하고 담당 변호사의 피드백을 확인할 수 있습니다."
+                        />
+                    </div>
+                </div>
+            </section>
+
             {/* Section 1.5: Action Blocks */}
             <section className="action-blocks-section">
                 <div className="action-blocks-wrapper">
@@ -316,3 +369,34 @@ const Home = () => {
 };
 
 export default Home;
+
+// Sub-component moved from Info.jsx
+const FeatureCard = ({ number, title, description }) => (
+    <div style={{
+        padding: '32px',
+        backgroundColor: '#ffffff',
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid #f1f5f9',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    }}>
+        <div style={{
+            fontSize: '48px',
+            fontWeight: 700,
+            color: 'var(--color-accent)',
+            marginBottom: '16px',
+            lineHeight: 1,
+        }}>{number}</div>
+        <h3 style={{
+            fontSize: '20px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: 'var(--color-primary)',
+        }}>{title}</h3>
+        <p style={{
+            fontSize: '15px',
+            color: 'var(--color-text-muted)',
+            lineHeight: 1.6,
+        }}>{description}</p>
+    </div>
+);
