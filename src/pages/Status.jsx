@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Search, Lock, FileText, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Status = () => {
+    const location = useLocation();
+
     const [formData, setFormData] = useState({
-        receiptNumber: '',
-        password: ''
+        receiptNumber: location.state?.receiptNumber || '',
+        password: location.state?.password || ''
     });
     const [isSearched, setIsSearched] = useState(false);
     const [statusData, setStatusData] = useState(null);
@@ -15,9 +18,8 @@ const Status = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (!formData.receiptNumber || !formData.password) {
+    const performSearch = (receiptNum, pw) => {
+        if (!receiptNum || !pw) {
             alert('접수번호와 비밀번호를 모두 입력해주세요.');
             return;
         }
@@ -30,12 +32,23 @@ const Status = () => {
         const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
 
         setStatusData({
-            receiptNumber: formData.receiptNumber,
+            receiptNumber: receiptNum,
             date: formattedDate,
             type: '기타 인권침해',
             currentStep: 0, // 0: 접수, 1: 검토중, 2: 조사중, 3: 완료
             lawyerFeedback: '신고가 정상적으로 접수되었으며, 현재 담당 변호사 배정 및 초기 검토를 대기 중입니다. 검토가 시작되면 이곳에 변호사의 의견이 업데이트됩니다.'
         });
+    };
+
+    useEffect(() => {
+        if (location.state?.receiptNumber && location.state?.password) {
+            performSearch(location.state.receiptNumber, location.state.password);
+        }
+    }, [location.state]);
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        performSearch(formData.receiptNumber, formData.password);
     };
 
     const steps = [
@@ -47,54 +60,37 @@ const Status = () => {
 
     return (
         <div style={styles.container}>
-            <Hero title="신고 확인" breadcrumb="신고 확인" />
+            <Hero title="진행상황조회" breadcrumb="진행상황조회" />
             <div className="container" style={styles.contentWrapper}>
-                <div style={styles.header}>
-                    <h1 style={styles.title}>신고 결과 확인</h1>
-                    <p style={styles.subtitle}>
-                        신고 시 발급받은 접수번호와 설정하신 비밀번호를 입력하여
-                        현재 진행 상황과 담당 변호사의 답변을 확인하세요.
-                    </p>
-                </div>
-
                 {!isSearched ? (
                     <div style={styles.searchFormContainer}>
-                        <div style={styles.searchIconWrapper}>
-                            <Search size={32} color="var(--color-primary)" />
-                        </div>
+                        <h2 style={styles.cardTitle}>진행상황조회</h2>
                         <form onSubmit={handleSearch} style={styles.form}>
-                            <div style={styles.inputGroup}>
-                                <label style={styles.label}>접수번호</label>
-                                <div style={styles.inputWrapper}>
-                                    <FileText size={20} color="var(--color-text-light)" style={styles.inputIcon} />
-                                    <input
-                                        type="text"
-                                        name="receiptNumber"
-                                        value={formData.receiptNumber}
-                                        onChange={handleInputChange}
-                                        style={{ ...styles.input, paddingLeft: '44px' }}
-                                        placeholder="예: TY-2023-0123"
-                                    />
-                                </div>
+                            <div style={styles.inputArea}>
+                                <input
+                                    type="text"
+                                    name="receiptNumber"
+                                    value={formData.receiptNumber}
+                                    onChange={handleInputChange}
+                                    style={styles.inputTop}
+                                    placeholder="접수번호 입력"
+                                />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    style={styles.inputBottom}
+                                    placeholder="비밀번호 입력"
+                                />
                             </div>
-                            <div style={styles.inputGroup}>
-                                <label style={styles.label}>비밀번호</label>
-                                <div style={styles.inputWrapper}>
-                                    <Lock size={20} color="var(--color-text-light)" style={styles.inputIcon} />
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleInputChange}
-                                        style={{ ...styles.input, paddingLeft: '44px' }}
-                                        placeholder="신고 시 설정한 비밀번호"
-                                    />
-                                </div>
-                            </div>
-                            <button type="submit" style={styles.submitButton} className="btn-hover-effect">
-                                조회하기
+                            <button type="submit" style={styles.submitButton}>
+                                확인
                             </button>
                         </form>
+                        <p style={styles.cardInfoText}>
+                            · 신고서 제출 시 할당된 접수번호와 비밀번호를 입력해 주세요.
+                        </p>
                     </div>
                 ) : (
                     <div style={styles.resultContainer} className="animate-fade-in">
@@ -188,60 +184,69 @@ const styles = {
         lineHeight: 1.6,
     },
     searchFormContainer: {
-        backgroundColor: 'var(--color-white)',
-        borderRadius: 'var(--radius-xl)',
-        boxShadow: 'var(--shadow-md)',
-        padding: '48px',
-        border: '1px solid var(--color-border)',
+        backgroundColor: '#3b82f6', // Bright blue matching Home page
+        borderRadius: '16px',
+        padding: '50px 40px', // Scaled down to match Report.jsx
+        maxWidth: '600px', // Scaled down to match Report.jsx
+        margin: '0 auto',
+        boxShadow: 'var(--shadow-lg)',
+        color: 'var(--color-white)',
+        textAlign: 'center',
     },
-    searchIconWrapper: {
-        display: 'flex',
-        justifyContent: 'center',
-        marginBottom: '32px',
+    cardTitle: {
+        fontSize: '28px', // Scaled down to match Report.jsx
+        fontWeight: 700,
+        marginBottom: '40px',
+        color: 'var(--color-white)',
     },
     form: {
         display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
+        height: '120px', // Total height for two stacked inputs (60px each)
+        backgroundColor: 'var(--color-white)',
+        borderRadius: '4px',
+        overflow: 'hidden',
+        marginBottom: '30px',
     },
-    inputGroup: {
+    inputArea: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '8px',
+        flex: 2,
     },
-    label: {
-        fontSize: '14px',
-        fontWeight: 500,
+    inputTop: {
+        width: '100%',
+        height: '60px',
+        padding: '0 24px',
+        fontSize: '18px',
+        border: 'none',
+        borderBottom: '1px solid #e5e7eb',
+        outline: 'none',
         color: 'var(--color-text-main)',
     },
-    inputWrapper: {
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    inputIcon: {
-        position: 'absolute',
-        left: '16px',
-    },
-    input: {
+    inputBottom: {
         width: '100%',
-        padding: '14px 16px',
-        fontSize: '15px',
-        border: '1px solid var(--color-border)',
-        borderRadius: 'var(--radius-md)',
+        height: '60px',
+        padding: '0 24px',
+        fontSize: '18px',
+        border: 'none',
         outline: 'none',
-        transition: 'border-color 0.2s, box-shadow 0.2s',
-        backgroundColor: 'var(--color-bg-light)',
+        color: 'var(--color-text-main)',
     },
     submitButton: {
-        backgroundColor: 'var(--color-primary)',
+        flex: 1, // Slightly narrower than inputs, but takes remaining space
+        backgroundColor: '#172554', // Dark navy
         color: 'var(--color-white)',
-        fontSize: '16px',
-        fontWeight: 600,
-        padding: '16px',
-        borderRadius: 'var(--radius-md)',
-        marginTop: '16px',
+        fontSize: '22px',
+        fontWeight: 700,
+        border: 'none',
+        cursor: 'pointer',
         transition: 'background-color 0.2s',
+    },
+    cardInfoText: {
+        fontSize: '16px',
+        color: 'var(--color-white)',
+        opacity: 0.9,
+        textAlign: 'left',
+        paddingLeft: '10px',
     },
     // Result Styles
     resultContainer: {

@@ -13,18 +13,23 @@ const Footer = () => {
                     />
                 </div>
 
-                <p style={styles.description}>
-                    기업의 투명성과 청렴한 문화를 위해 외부 독립 전문기관인 법무법인 티와이로이어스가 운영하는 내부 신고 시스템입니다.
-                </p>
-
                 <div style={styles.contactInfo}>
-                    <div style={styles.infoLine}>서울 서초구 강남대로 291, 11층(서초동, 남강빌딩)</div>
                     <div style={styles.infoLine}>
-                        <span>TEL 02-3481-0330</span>
-                        <span>FAX 02-3481-2103</span>
-                        <span>E-mail tylawyers@tylaw.co.kr</span>
+                        <span>회사명 : 법무법인 티와이로이어스</span>
+                        <span style={styles.divider}>|</span>
+                        <span>06611 서울 서초구 강남대로 291, 11층(서초동, 남강빌딩)</span>
+                        <span style={styles.divider}>|</span>
+                        <span>대표전화 : 02-3481-0330</span>
                     </div>
-                    <div style={styles.infoLine}>광고책임변호사 : 정회일</div>
+                    <div style={styles.infoLine}>
+                        <span>FAX : 02-3481-2103</span>
+                        <span style={styles.divider}>|</span>
+                        <span>E-mail : tylawyers@tylaw.co.kr</span>
+                        <span style={styles.divider}>|</span>
+                        <span>개인정보보호책임자 : 강현성 변호사</span>
+                        <span style={styles.divider}>|</span>
+                        <span>사업자등록번호 : 177-87-02823</span>
+                    </div>
                 </div>
 
                 <div style={styles.copyrightWrapper}>
@@ -39,7 +44,7 @@ const Footer = () => {
 
 const styles = {
     footer: {
-        backgroundColor: 'var(--color-bg-light, #fafafa)',
+        backgroundColor: '#e2e8f0',
         borderTop: '1px solid var(--color-border)',
         padding: '60px 0 60px',
         marginTop: 'auto',
@@ -48,39 +53,40 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        gap: '24px',
+        gap: '16px',
     },
     logoWrapper: {
         display: 'flex',
         alignItems: 'flex-start',
+        marginBottom: '8px',
     },
     logoImage: {
         height: '42px',
         objectFit: 'contain',
-    },
-    description: {
-        fontSize: '16px',
-        color: 'var(--color-text-main, #333)',
-        lineHeight: 1.6,
-        margin: '0 0 8px 0',
-        wordBreak: 'keep-all',
-        maxWidth: '700px',
+        mixBlendMode: 'multiply',
     },
     contactInfo: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '10px',
+        gap: '4px',
     },
     infoLine: {
         fontSize: '15px',
         color: 'var(--color-text-muted, #555)',
         display: 'flex',
         flexWrap: 'wrap',
-        gap: '24px',
+        alignItems: 'center',
+        gap: '12px',
         margin: 0,
     },
+    divider: {
+        color: 'var(--color-text-light, #999)',
+        fontSize: '13px',
+        opacity: 0.6,
+        userSelect: 'none',
+    },
     copyrightWrapper: {
-        marginTop: '24px',
+        marginTop: '16px',
     },
     copyright: {
         fontSize: '14px',

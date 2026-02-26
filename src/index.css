@@ -105,3 +105,61 @@ ul {
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
+
+/* Info Page Navigator Button */
+.info-nav-btn {
+  flex: 1;
+  padding: 22px 0;
+  border: none;
+  background-color: #1e40af;
+  /* Lighter navy/blue for default state */
+  border-radius: 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-nav-btn:hover {
+  background-color: #081a36;
+}
+
+.info-nav-btn.active {
+  background-color: #081a36;
+}
+
+@media (max-width: 768px) {
+  .info-nav-btn {
+    padding: 16px 0;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-nav-btn {
+    padding: 12px 0;
+    font-size: 13px;
+    white-space: normal;
+    word-break: keep-all;
+  }
+}
+
+/* React Quill Editor Specific Styles */
+.ql-container.ql-snow {
+  border: 1px solid #94a3b8 !important;
+  /* Force a clear border on the container */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.ql-toolbar.ql-snow {
+  border: 1px solid #94a3b8 !important;
+  /* Force a clear border on the toolbar */
+  border-bottom: none !important;
+  /* Prevent double border between toolbar and editor */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}

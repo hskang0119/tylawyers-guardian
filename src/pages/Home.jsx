@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Shield, UserCheck, Clock,
@@ -11,13 +11,75 @@ import './Home.css';
 
 const Home = () => {
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1);
+    const [receiptNumber, setReceiptNumber] = useState('');
+    const [password, setPassword] = useState('');
+    const [checkMethod, setCheckMethod] = useState('password');
+
+    // Define mock partner list for autocomplete functionality
+    const PARTNER_LIST = [
+        '서울주택도시공사',
+        '서울주택도시복지공사',
+        '테스트 컴퍼니 주식회사',
+        'TY 파트너스 그룹',
+        '한국도로공사',
+        '한국전력공사',
+        '삼성디스플레이',
+        'LG전자',
+        '현대자동차',
+        '기아자동차'
+    ];
+
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        setFocusedSuggestionIndex(-1);
+        if (query.length > 0) {
+            const filtered = PARTNER_LIST.filter(p => p.toLowerCase().includes(query.toLowerCase()));
+            setSuggestions(filtered);
+            setShowSuggestions(true);
+        } else {
+            setSuggestions([]);
+            setShowSuggestions(false);
+        }
+    };
+
+    const handlePartnerSelect = (partner) => {
+        setSearchQuery(partner);
+        setSuggestions([]);
+        setShowSuggestions(false);
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        if (!searchQuery) {
+            alert('고객사(기관)명을 입력해주세요.');
+            return;
+        }
+
+        if (!PARTNER_LIST.includes(searchQuery)) {
+            alert('등록되지 않은 고객사(기관)입니다. 정확한 이름을 선택해주세요.');
+            return;
+        }
+
+        navigate('/report', { state: { initialPartner: searchQuery } });
+    };
+
+    const handleStatusCheck = (e) => {
+        e.preventDefault();
+        if (receiptNumber && password) {
+            navigate('/status', { state: { receiptNumber, password } });
+        } else {
+            navigate('/status');
+        }
+    };
 
     return (
         <div className="home-container">
-            {/* Background abstract elements */}
-            <div className="floating-circle fc-1"></div>
-            <div className="floating-circle fc-2"></div>
-
             {/* Section 1: Hero Section */}
             <section className="hero-section">
                 <div className="hero-content">
@@ -25,18 +87,139 @@ const Home = () => {
                         법무법인 티와이로이어스 인권상담신고센터
                     </h1>
                     <p className="hero-subheadline">
-                        외부 전문기관 법무법인 티와이로이어스가 신고 접수 및 조사를 통해<br />고객사 임직원의 인권을 보호합니다.
+                        법무법인 티와이로이어스 인권상담신고센터는 고객사 임직원의 인권보호를 위해 제공되는 독립된 신고시스템입니다.<br />
+                        신고하신 내용은 철저한 보안 프로세스를 통해 접수되어 처리됩니다.
                     </p>
-                    <div className="hero-buttons">
-                        <button className="btn-primary" onClick={() => navigate('/report')}>
-                            신고서 작성하기 <ArrowRight size={20} style={{ display: 'inline', marginLeft: '8px', verticalAlign: 'text-bottom' }} />
-                        </button>
-                        <button className="btn-secondary" onClick={() => navigate('/info')}>
-                            신고안내 보기
-                        </button>
+                </div>
+            </section>
+
+            {/* Section 1.5: Action Blocks */}
+            <section className="action-blocks-section">
+                <div className="action-blocks-wrapper">
+                    {/* Report Block */}
+                    <div className="action-block block-report">
+                        <div className="action-block-content">
+                            <h2 className="action-title">신고하기</h2>
+
+                            <form onSubmit={handleSearch} className="action-search-form">
+                                <div className="search-input-wrapper">
+                                    <input
+                                        type="text"
+                                        className="action-input search-input"
+                                        placeholder="고객사(기관)명 입력"
+                                        value={searchQuery}
+                                        onChange={handleSearchChange}
+                                        onFocus={() => {
+                                            if (searchQuery.length > 0 && suggestions.length > 0) setShowSuggestions(true);
+                                        }}
+                                        onBlur={() => {
+                                            // Delay hiding suggestions so click event can fire
+                                            setTimeout(() => {
+                                                setShowSuggestions(false);
+                                                setFocusedSuggestionIndex(-1);
+                                            }, 200);
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (!showSuggestions || suggestions.length === 0) return;
+
+                                            if (e.key === 'ArrowDown') {
+                                                e.preventDefault();
+                                                setFocusedSuggestionIndex(prev => Math.min(prev + 1, suggestions.length - 1));
+                                            } else if (e.key === 'ArrowUp') {
+                                                e.preventDefault();
+                                                setFocusedSuggestionIndex(prev => Math.max(prev - 1, 0));
+                                            } else if (e.key === 'Enter') {
+                                                if (focusedSuggestionIndex >= 0 && focusedSuggestionIndex < suggestions.length) {
+                                                    e.preventDefault();
+                                                    handlePartnerSelect(suggestions[focusedSuggestionIndex]);
+                                                }
+                                            } else if (e.key === 'Escape') {
+                                                setShowSuggestions(false);
+                                                setFocusedSuggestionIndex(-1);
+                                            }
+                                        }}
+                                    />
+                                    <button type="submit" className="search-icon-button">
+                                        <Search size={24} color="#3b82f6" />
+                                    </button>
+
+                                    {showSuggestions && suggestions.length > 0 && (
+                                        <ul style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            width: '100%',
+                                            backgroundColor: 'var(--color-white)',
+                                            border: '1px solid var(--color-border)',
+                                            borderRadius: 'var(--radius-md)',
+                                            marginTop: '4px',
+                                            padding: '0',
+                                            listStyle: 'none',
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                            zIndex: 10,
+                                            boxShadow: 'var(--shadow-md)'
+                                        }}>
+                                            {suggestions.map((suggestion, index) => (
+                                                <li
+                                                    key={index}
+                                                    style={{
+                                                        padding: '12px 16px',
+                                                        cursor: 'pointer',
+                                                        borderBottom: index < suggestions.length - 1 ? '1px solid var(--color-bg-light)' : 'none',
+                                                        color: 'var(--color-text-main)',
+                                                        backgroundColor: index === focusedSuggestionIndex ? '#e2e8f0' : 'transparent',
+                                                        transition: 'background-color 0.2s',
+                                                        textAlign: 'left'
+                                                    }}
+                                                    onMouseDown={() => handlePartnerSelect(suggestion)}
+                                                    onMouseEnter={() => setFocusedSuggestionIndex(index)}
+                                                    onMouseLeave={() => setFocusedSuggestionIndex(-1)}
+                                                >
+                                                    {suggestion}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </form>
+                            <ul className="action-subtitle-bottom">
+                                <li>고객사(기관) 임직원에게 제공되는 서비스입니다.</li>
+                                <li>고객사(기관)을 검색해 주세요.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Status Check Block */}
+                    <div className="action-block block-status">
+                        <div className="action-block-content">
+                            <h2 className="action-title">진행상황조회</h2>
+
+                            <form onSubmit={handleStatusCheck} className="action-status-form">
+                                <div className="status-inputs">
+                                    <input
+                                        type="text"
+                                        className="action-input"
+                                        placeholder="접수번호 입력"
+                                        value={receiptNumber}
+                                        onChange={(e) => setReceiptNumber(e.target.value)}
+                                    />
+                                    <input
+                                        type="password"
+                                        className="action-input"
+                                        placeholder="비밀번호 입력"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <button type="submit" className="status-submit-btn">확인</button>
+                            </form>
+                            <ul className="action-subtitle-bottom">
+                                <li>신고서 제출 시 할당된 접수번호와 비밀번호를 입력해 주세요.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <img src="/hero-icon.png" alt="TY Lawyers Guardian Shield" className="hero-visual" />
             </section>
 
             {/* Section 2: Core Values */}

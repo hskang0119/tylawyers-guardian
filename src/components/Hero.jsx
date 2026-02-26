@@ -1,11 +1,8 @@
 import React from 'react';
 
-const Hero = ({ title, bgImage }) => {
+const Hero = ({ title }) => {
     return (
-        <section style={{
-            ...styles.heroSection,
-            backgroundImage: `url(${bgImage || '/hero-bg.png'})`
-        }}>
+        <section style={styles.heroSection}>
             <div style={styles.overlay}></div>
             <div className="container" style={styles.container}>
                 <div style={styles.content}>
@@ -21,8 +18,9 @@ const Hero = ({ title, bgImage }) => {
 const styles = {
     heroSection: {
         position: 'relative',
-        height: '320px',
-        backgroundColor: '#1E293B',
+        height: '37.5vh', // Exactly half of the Home page's 75vh
+        backgroundColor: '#040E1B',
+        backgroundImage: `url('/hero_human_rights.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -32,6 +30,7 @@ const styles = {
         padding: '0',
         color: 'var(--color-white)',
         overflow: 'hidden',
+        borderTop: '10px solid #57B6DB', // Consistent cyan top border
     },
     overlay: {
         position: 'absolute',
@@ -39,7 +38,7 @@ const styles = {
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.7) 100%)',
+        background: 'linear-gradient(to bottom, rgba(4, 14, 27, 0.6) 0%, rgba(4, 14, 27, 0.85) 100%)',
         zIndex: 1,
     },
     container: {

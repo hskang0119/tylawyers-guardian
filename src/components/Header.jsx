@@ -7,9 +7,9 @@ const Header = () => {
     const location = useLocation();
 
     const navLinks = [
-        { name: '신고안내', path: '/info' },
+        { name: '이용안내', path: '/info' },
         { name: '신고하기', path: '/report' },
-        { name: '신고확인', path: '/status' },
+        { name: '진행상황조회', path: '/status' },
         { name: '도입문의', path: '/partner' },
         { name: '오시는길', path: '/contact' }
     ];
@@ -73,7 +73,7 @@ const Header = () => {
                                     style={{
                                         ...styles.mobileNavLink,
                                         color: isActive(link.path) ? 'var(--color-primary)' : 'var(--color-text-main)',
-                                        fontWeight: isActive(link.path) ? 600 : 400,
+                                        fontWeight: isActive(link.path) ? 600 : 500, // Semi-bold active, medium inactive
                                     }}
                                     onClick={() => setIsMenuOpen(false)}
                                 >
@@ -143,10 +143,9 @@ const styles = {
         padding: 0,
     },
     navLink: {
-        fontSize: '15px', // Decreased font size further
+        fontSize: '18px', // Increased font size for better visibility
         transition: 'color 0.2s',
         textDecoration: 'none',
-        letterSpacing: '-0.02em', // Tighter letter spacing
     },
     mobileToggle: {
         display: 'block',
@@ -167,7 +166,7 @@ const styles = {
     mobileNavLink: {
         display: 'block',
         padding: '16px 24px',
-        fontSize: '16px',
+        fontSize: '18px', // Matched desktop font size
         textDecoration: 'none',
     },
 };
