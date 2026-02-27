@@ -313,53 +313,114 @@ ul.action-subtitle-bottom {
   margin-bottom: 60px;
 }
 
-.values-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 32px;
-}
-
-.value-card {
-  background: var(--white);
-  padding: 40px 32px;
-  border-radius: 24px;
-  box-shadow: var(--soft-shadow);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.core-values-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  gap: 120px;
+  /* larger gap to account for overlapping positioning */
+  padding: 40px 0;
 }
 
-.value-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--hover-shadow);
-}
-
-.value-icon {
-  width: 64px;
-  height: 64px;
-  background: #f0f7ff;
-  color: var(--cerulean);
-  border-radius: 20px;
+.core-value-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  font-size: 32px;
+  position: relative;
+  width: 100%;
 }
 
-.value-title {
-  font-size: 1.5rem;
+.core-value-row.reverse {
+  justify-content: flex-end;
+}
+
+.core-value-image {
+  width: 65%;
+  height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
+
+.core-value-image:hover {
+  transform: scale(1.02);
+}
+
+.core-value-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.core-value-content-overlap {
+  width: 45%;
+  position: absolute;
+  padding: 56px 48px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+/* For regular rows, position right */
+.core-value-row:not(.reverse) .core-value-content-overlap {
+  right: 0;
+}
+
+/* For reversed rows, position left */
+.core-value-row.reverse .core-value-content-overlap {
+  left: 0;
+}
+
+.core-value-content-overlap:hover {
+  transform: translateY(-5px);
+}
+
+.core-value-content-overlap h3 {
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--navy);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
 }
 
-.value-desc {
+.core-value-content-overlap p {
+  font-size: 1.05rem;
   color: #64748b;
-  line-height: 1.6;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+@media (max-width: 900px) {
+  .core-value-row {
+    flex-direction: column !important;
+    gap: 0;
+  }
+
+  .core-value-row.reverse {
+    justify-content: flex-start;
+  }
+
+  .core-value-image {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .core-value-content-overlap {
+    width: 90%;
+    position: relative;
+    top: -40px;
+    /* pull up over image */
+    left: auto !important;
+    right: auto !important;
+    margin: 0 auto;
+    padding: 32px 24px;
+    text-align: left;
+  }
 }
 
 /* Section 3: Service Process */

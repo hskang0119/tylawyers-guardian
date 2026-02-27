@@ -93,58 +93,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Feature Cards Section moved from Info.jsx */}
-            <section className="section bg-light" style={{ padding: '60px 0', backgroundColor: '#f8fafc' }}>
-                <div className="container">
-                    <div style={{
-                        textAlign: 'center',
-                        maxWidth: '800px',
-                        margin: '0 auto 60px',
-                    }}>
-                        <h2 style={{
-                            fontSize: '36px',
-                            fontWeight: 700,
-                            color: 'var(--color-text-main)',
-                            marginBottom: '20px',
-                        }}>신고방법</h2>
-                        <p style={{
-                            fontSize: '18px',
-                            color: 'var(--color-text-muted)',
-                            lineHeight: 1.6,
-                        }}>
-                            <strong>인권상담신고센터</strong>는 조직의 건강한 문화를 위해 외부 독립 기관(법무법인 티와이로이어스)이 운영하는 안전한 신고 채널입니다.<br />
-                            누구나 안심하고 직장 내 발생하는 부조리를 신고할 수 있도록 철저한 익명성과 정보 보안을 최우선으로 합니다.
-                        </p>
-                    </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                        gap: '32px',
-                    }}>
-                        <FeatureCard
-                            number="01"
-                            title="독립적인 외부 기관 운영"
-                            description="사내 부서가 아닌 법무법인 티와이로이어스가 직접 접수하고 1차 검토를 진행하여 공정성과 객관성을 확보합니다."
-                        />
-                        <FeatureCard
-                            number="02"
-                            title="철저한 신분 보장"
-                            description="익명 신고 시스템 및 암호화 기술을 적용하여 신고자의 IP나 개인 식별 정보가 조직에 절대 유출되지 않습니다."
-                        />
-                        <FeatureCard
-                            number="03"
-                            title="전문 변호사의 직접 검토"
-                            description="접수된 내용은 당 법무법인의 전문 변호사가 직접 법률적 관점에서 검토하고 안전한 처리 방향을 제시합니다."
-                        />
-                        <FeatureCard
-                            number="04"
-                            title="투명한 진행 절차"
-                            description="신고자는 접수번호와 비밀번호를 통해 안전하게 진행 상황을 조회하고 담당 변호사의 피드백을 확인할 수 있습니다."
-                        />
-                    </div>
-                </div>
-            </section>
 
             {/* Section 1.5: Action Blocks */}
             <section className="action-blocks-section">
@@ -278,92 +227,76 @@ const Home = () => {
             {/* Section 2: Core Values */}
             <section className="section bg-white" style={{ position: 'relative', zIndex: 3 }}>
                 <div className="section-wrapper">
-                    <h2 className="section-title">가장 확실하고 안전한 보호 시스템</h2>
-                    <div className="values-grid">
-                        <div className="value-card">
-                            <div className="value-icon"><Shield size={32} /></div>
-                            <h3 className="value-title">철저한 익명성</h3>
-                            <p className="value-desc">어떠한 기록도 남지 않는 안전한 소통 창구입니다. 당신의 신분을 누구도 알 수 없게 철저히 보호합니다.</p>
-                        </div>
-                        <div className="value-card">
-                            <div className="value-icon"><UserCheck size={32} /></div>
-                            <h3 className="value-title">전문 변호사 직접 대응</h3>
-                            <p className="value-desc">AI가 아닌 실제 전문 변호사의 정밀 분석을 통해 실질적이고 정확한 법률 조력을 제공합니다.</p>
-                        </div>
-                        <div className="value-card">
-                            <div className="value-icon"><Clock size={32} /></div>
-                            <h3 className="value-title">24/7 실시간 모니터링</h3>
-                            <p className="value-desc">위기 상황 발생 시 즉각적인 법적 조치를 위한 상시 시스템이 가동됩니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    <h2 className="section-title" style={{ textAlign: 'center', fontSize: '2.25rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '80px' }}>
+                        인권상담센터의 3대 핵심 가치
+                    </h2>
 
-            {/* Section 3: Service Process */}
-            <section className="process-section">
-                <div className="section-wrapper">
-                    <h2 className="process-title" style={{ color: "var(--white)" }}>신고 처리 과정</h2>
-                    <div className="process-steps">
-                        <div className="step-card">
-                            <div className="step-number"><PenTool size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>신고접수</h3>
-                            <p className="step-desc">안전한 채널을 통한 익명<br />신고 내용 접수</p>
-                        </div>
-
-                        <div className="step-card">
-                            <div className="step-number"><ShieldAlert size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>기초조사</h3>
-                            <p className="step-desc">피해자 임시 보호 조치 및<br />기초 사실관계 파악</p>
-                        </div>
-                        <div className="step-card">
-                            <div className="step-number"><ClipboardList size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>심층조사</h3>
-                            <p className="step-desc">관련자 심층 면담 및<br />객관적 증거 수집</p>
-                        </div>
-                        <div className="step-card">
-                            <div className="step-number"><FileCheck size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>결과보고</h3>
-                            <p className="step-desc">조사 내용 기반의<br />종합적인 결과 보고서 작성</p>
-                        </div>
-                        <div className="step-card">
-                            <div className="step-number"><Scale size={28} color="white" /></div>
-                            <h3 className="step-title" style={{ color: "var(--white)" }}>구제조치</h3>
-                            <p className="step-desc">징계 등 후속 조치 및<br />피해 회복 지원</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 4: Practice Areas */}
-            <section className="section bg-light">
-                <div className="section-wrapper">
-                    <h2 className="section-title">주요 보호 영역</h2>
-                    <div className="areas-grid">
-                        <div className="area-item">
-                            <div className="area-icon"><Users size={28} /></div>
-                            <div className="area-info">
-                                <h3>직장내성희롱&성폭행</h3>
-                                <p>조직 내 발생할 수 있는 성적 굴욕감, 혐오감 유발 행위 및 성범죄 피해 구제</p>
+                    <div className="core-values-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px', paddingTop: '40px' }}>
+                        {/* Value 1 */}
+                        <div className="core-value-row" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                            <div className="core-value-image" style={{ width: '65%', height: '400px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
+                                <img src="/core_value_1.jpg" alt="완벽한 정보 보호 및 보안 체계" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <div className="core-value-content-overlap" style={{ width: '45%', position: 'absolute', right: 0, padding: '50px 40px', background: 'var(--white)', borderRadius: '12px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '8px', fontWeight: 600 }}>Security & Confidentiality</div>
+                                <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '20px', lineHeight: 1.3, letterSpacing: '-0.5px' }}>
+                                    완벽한 정보 보호 및 보안 체계
+                                </h3>
+                                <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.7, wordBreak: 'keep-all', marginBottom: '16px' }}>
+                                    단순한 익명을 넘어, 신고자가 안심하고 진실을 말할 수 있는 기술적 인프라를 제공합니다.
+                                </p>
+                                <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                                    <li style={{ marginBottom: '8px' }}><strong>신고 방식의 자율성:</strong> 신고자의 의사에 따라 기명 또는 무기명(익명) 접수를 자유롭게 선택할 수 있습니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>철저한 보안 기술 적용:</strong> IP 추적 방지 기술과 데이터 암호화(End-to-End Encryption) 프로세스를 통해 신고자의 접속 기록과 상담 내용이 외부로 유출되는 것을 원천 차단합니다.</li>
+                                    <li><strong>접근 권한 제한:</strong> 지정된 담당 변호사 외에는 누구도 신고 내용에 접근할 수 없도록 독립된 보안 서버에서 관리됩니다.</li>
+                                </ul>
                             </div>
                         </div>
-                        <div className="area-item">
-                            <div className="area-icon"><MessageSquareWarning size={28} /></div>
-                            <div className="area-info">
-                                <h3>직장내괴롭힘</h3>
-                                <p>지위나 관계의 우위를 이용한 신체적, 정신적 고통 유발 행위 조사 및 대응</p>
+
+                        {/* Value 2 (Reversed) */}
+                        <div className="core-value-row reverse" style={{ display: 'flex', alignItems: 'center', position: 'relative', justifyContent: 'flex-end' }}>
+                            <div className="core-value-image" style={{ width: '65%', height: '400px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
+                                <img src="/core_value_2.png" alt="법률 전문가의 심층적인 사건 분석" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.85) grayscale(0.2)' }} />
+                            </div>
+                            <div className="core-value-content-overlap" style={{ width: '45%', position: 'absolute', left: 0, padding: '50px 40px', background: 'var(--white)', borderRadius: '12px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '8px', fontWeight: 600 }}>Expert Legal Analysis</div>
+                                <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '20px', lineHeight: 1.3, letterSpacing: '-0.5px' }}>
+                                    법률 전문가의 심층적인 사건 분석
+                                </h3>
+                                <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.7, wordBreak: 'keep-all', marginBottom: '16px' }}>
+                                    단순한 접수 대행이 아닌, 실무 경험이 풍부한 전문 변호사가 사안의 본질을 정확히 파악합니다.
+                                </p>
+                                <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                                    <li style={{ marginBottom: '8px' }}><strong>법률적 성격 정밀 판별:</strong> 접수된 사안이 직장 내 괴롭힘, 성희롱 등 관련 법령상 어디에 해당되는지 법리적 관점에서 심층 검토합니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>실효성 있는 조력 제공:</strong> 사안별로 필요한 증거 확보 방안, 조사 절차 준수 여부 등 실질적인 해결을 위한 전문 가이드라인을 제시합니다.</li>
+                                    <li><strong>객관성 및 공정성 유지:</strong> 법무법인 TY의 이름을 걸고 중립적인 위치에서 사안을 분석하여 고객사와 신고자 모두가 신뢰할 수 있는 결과를 도출합니다.</li>
+                                </ul>
                             </div>
                         </div>
-                        <div className="area-item">
-                            <div className="area-icon"><Scale size={28} /></div>
-                            <div className="area-info">
-                                <h3>기타인권침해</h3>
-                                <p>부당 인사, 차별 대우 등 기타 부조리 및 조직 내 인권 침해 사안 전반 처리</p>
+
+                        {/* Value 3 */}
+                        <div className="core-value-row" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                            <div className="core-value-image" style={{ width: '65%', height: '400px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
+                                <img src="/core_value_3.jpg" alt="공백 없는 상시 대응 및 관리 체계" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.8) contrast(1.1)' }} />
+                            </div>
+                            <div className="core-value-content-overlap" style={{ width: '45%', position: 'absolute', right: 0, padding: '50px 40px', background: 'var(--white)', borderRadius: '12px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '8px', fontWeight: 600 }}>24/7 Operational Excellence</div>
+                                <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '20px', lineHeight: 1.3, letterSpacing: '-0.5px' }}>
+                                    공백 없는 상시 대응 및 관리 체계
+                                </h3>
+                                <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.7, wordBreak: 'keep-all', marginBottom: '16px' }}>
+                                    위기 상황에 즉각적으로 반응하고, 사건의 시작부터 종결까지 체계적으로 관리합니다.
+                                </p>
+                                <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                                    <li style={{ marginBottom: '8px' }}><strong>365일 24시간 접수 시스템:</strong> 시간과 장소에 구애받지 않고 언제 어디서든 인권 침해 사실을 알릴 수 있는 상시 채널을 가동합니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>긴급 사안 우선 대응:</strong> 피해 확산 방지가 필요한 긴급 사안의 경우, 변호사 즉시 호출 시스템을 통해 신속한 초기 대응 및 법적 조치를 지원합니다.</li>
+                                    <li><strong>체계적인 사후 프로세스:</strong> 접수된 신고의 처리 현황을 실시간으로 모니터링하며, 조사 결과 통보 및 재발 방지 대책 수립까지 전 과정을 면밀히 관리합니다.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
         </div>
     );
 };

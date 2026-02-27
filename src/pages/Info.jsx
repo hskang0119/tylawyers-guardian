@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FileEdit, FileSearch, Users, ClipboardCheck, ShieldCheck, Shield, ChevronRight } from 'lucide-react';
+import { FileEdit, FileSearch, Users, ClipboardCheck, ShieldCheck, Shield, ChevronRight, UserCircle, AlertTriangle, Send, Tag, Download } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Info = () => {
@@ -39,15 +39,170 @@ const Info = () => {
                 </div>
             </div>
 
-            {/* Service Intro (신고방법) - Moved to Home.jsx */}
+            {/* Reporting Method Section (신고방법) */}
             {activeTab === 'method' && (
-                <section id="method" style={styles.introSection}>
+                <section id="method" style={styles.methodSection}>
                     <div className="container">
-                        <div style={styles.introHeader}>
-                            <h2 style={styles.title}>신고방법</h2>
-                            <p style={styles.subtitle}>
-                                메인 페이지 상단에서 등록된 <strong>고객사(기관)명</strong>을 검색하여 신고 접수를 진행하실 수 있습니다.
+                        <div style={styles.methodHeader}>
+                            <h2 style={styles.methodTitle}>신고방법 안내</h2>
+                            <p style={styles.methodSubtitle}>
+                                누구나 안전하게 인권침해 사실을 신고할 수 있도록 다양한 접수 채널을 운영하고 있습니다.
                             </p>
+                        </div>
+
+                        <div style={styles.methodGrid}>
+                            {/* 1. 신고주체 */}
+                            <div style={styles.methodCard}>
+                                <div style={styles.methodCardHeader}>
+                                    <UserCircle size={28} color="var(--color-primary)" />
+                                    <h3 style={styles.methodCardTitle}>신고주체</h3>
+                                </div>
+                                <ul style={styles.methodList}>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <span>누구든지 직장내성희롱, 직장내괴롭힘, 기타 인권 침해 사실을 알게된 자는 그 사실을 신고할 수 있습니다. <br /><span style={styles.textSmall}>(근로기준법 제76조의 3 제1항, 남녀고용평등법 제76조의 3 제1항)</span></span>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <span>피해자 외에도 인권 침해를 목격하거나 그 사실을 알게 된 자는 그 사실을 신고할 수 있습니다.</span>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <span>피해자 이외의 제3자가 신고하는 경우 사안에 따라 피해자의 동의가 있어야 조사에 착수할 수 있는 경우가 있을 수 있습니다.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* 2. 신고대상 */}
+                            <div style={styles.methodCard}>
+                                <div style={styles.methodCardHeader}>
+                                    <AlertTriangle size={28} color="var(--color-primary)" />
+                                    <h3 style={styles.methodCardTitle}>신고대상</h3>
+                                </div>
+                                <ul style={styles.methodList}>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <span>고객사(기관)의 통제 범위 내에 있는 것으로 인정되거나 업무관련성이 있는 영역에서 고객사(기관) 구성원이 가해자 또는 피해자인 인권침해 행위</span>
+                                    </li>
+                                </ul>
+
+                                <div style={styles.splitGrid}>
+                                    <div style={styles.splitGridLeft}>
+                                        <h4 style={styles.subHeading}><ShieldCheck size={18} color="#10b981" /> 신고대상에 포함되는 행위</h4>
+                                        <ul style={styles.subList}>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 직장 내 성비위(성희롱, 성추행, 성폭행 등)</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 직장 내 괴롭힘</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 2차 가해</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 폭언</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 기타</li>
+                                        </ul>
+                                    </div>
+                                    <div style={styles.splitGridRight}>
+                                        <h4 style={styles.subHeading}><AlertTriangle size={18} color="#ef4444" /> 신고대상에 포함되지 않는 행위</h4>
+                                        <ul style={styles.subList}>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 당사자 간의 채권적 권리 관계 또는 계약상 의무 이행 여부 등에 관한 사안</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 고객사(기관)의 업무 진행에 관한 문의‧질의</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 특정 행위자가 존재하지 않는 일반적‧주관적 불편사항 등</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 고객사(기관)와 조직 내지 업무와 무관한 사안</li>
+                                            <li style={styles.subListItem}><span style={styles.listDot}>•</span> 기타 인권침해에 해당하지 않음이 명백한 사안</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div style={styles.noticeBox}>
+                                    <AlertTriangle size={18} color="#b45309" style={{ flexShrink: 0, marginTop: '2px' }} />
+                                    <span>신고대상이 아니거나 인권침해에 해당하지 않음이 명백한 경우 각하될 수 있습니다.</span>
+                                </div>
+                            </div>
+
+                            {/* 3. 신고방법 */}
+                            <div style={styles.methodCard}>
+                                <div style={styles.methodCardHeader}>
+                                    <Send size={28} color="var(--color-primary)" />
+                                    <h3 style={styles.methodCardTitle}>신고방법</h3>
+                                </div>
+                                <ul style={styles.methodList}>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>온라인신고</strong>
+                                            <p style={{ margin: 0 }}>인권상담신고센터를 통한 온라인 신고서 접수</p>
+                                        </div>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>서면신고</strong>
+                                            <p style={{ margin: 0, lineHeight: 1.5 }}>서면신고 양식을 다운로드 받아 당 법무법인 방문 또는 우편접수<br /><span style={styles.textSmall}>[주소 : 서울 서초구 강남대로 291, 11층 (서초동, 남강빌딩)]</span></p>
+                                            <a href="#" style={styles.downloadButton}>
+                                                <Download size={16} /> 신고서 다운로드
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>이메일신고</strong>
+                                            <ul style={styles.nestedList}>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> 신고전용 이메일(<strong>tylawyers@tylaw.co.kr</strong>)을 통해 신고 접수 가능</li>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> 개별 이메일을 통해 신고된 경우에는 접수되지 않을 수 있음</li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>면담신고</strong>
+                                            <ul style={styles.nestedList}>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span><strong>원칙 :</strong> 신고단계에서 면담을 통한 신고 접수는 진행하지 않음</span></li>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span><strong>예외 :</strong> 사안의 경중과 긴급성을 고려하여 필요하다고 인정되는 경우에 한하여 면담신고 진행</span></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>전화신고</strong>
+                                            <ul style={styles.nestedList}>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span><strong>원칙 :</strong> 유선으로 신고내용을 진술할 수 없음</span></li>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span><strong>예외 :</strong> 사안의 경중과 긴급성을 고려하여 필요하다고 인정되고, 신고자가 신고내용 녹음에 동의하는 경우에 한하여 전화신고 가능</span></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li style={styles.methodListItem}>
+                                        <ChevronRight size={18} style={styles.methodBullet} />
+                                        <div style={styles.methodListContent}>
+                                            <strong>SNS 신고</strong>
+                                            <p style={{ margin: 0 }}>SNS를 통한 신고는 접수되지 아니함</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* 4. 신고유형 */}
+                            <div style={styles.methodCard}>
+                                <div style={styles.methodCardHeader}>
+                                    <Tag size={28} color="var(--color-primary)" />
+                                    <h3 style={styles.methodCardTitle}>신고유형</h3>
+                                </div>
+                                <div style={styles.typeGrid}>
+                                    <div style={styles.typeCard}>
+                                        <h4 style={styles.typeTitle}>기명신고</h4>
+                                        <ul style={styles.nestedList}>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자 정보를 드러내고 신고하는 방법</span></li>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>빠른 접수와 신고처리 및 사후 처리 내용에 대한 피드백이 가능</span></li>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>기명신고의 경우 신고자의 신원은 고객사(기관) 담당자에게 접수되며, <strong>신고자의 신원은 관련법에 따라 보호됩니다.</strong></span></li>
+                                        </ul>
+                                    </div>
+                                    <div style={styles.typeCard}>
+                                        <h4 style={styles.typeTitle}>무기명신고 (익명신고)</h4>
+                                        <ul style={styles.nestedList}>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자 정보를 드러내지 않고 신고하는 방법</span></li>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자 조사가 어려워 사실 확인이 불가능한 경우 사전조사 단계에서 기각될 수 있습니다. 그러나 신고자 조사 없이 피해자, 참고인 등을 통해 사실 확인이 가능한 경우 조사 절차가 진행됩니다.</span></li>
+                                            <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>무기명신고(익명신고)의 경우 <strong>신고자의 신원은 철저히 비밀로 유지되며, 고객사(기관) 담당자에게도 공개되지 아니합니다.</strong></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -231,26 +386,204 @@ const styles = {
         boxShadow: '0 10px 15px -3px rgba(30, 58, 138, 0.4)',
         transform: 'translateY(-2px)',
     },
-    // Intro Section
-    introSection: {
-        padding: '60px 0',
+    // Method Section
+    methodSection: {
+        padding: '80px 0',
         backgroundColor: '#f8fafc',
     },
-    introHeader: {
+    methodHeader: {
         textAlign: 'center',
         maxWidth: '800px',
-        margin: '0 auto 60px',
+        margin: '0 auto 50px',
     },
-    title: {
-        fontSize: '36px',
+    methodTitle: {
+        fontSize: '32px',
         fontWeight: 700,
         color: 'var(--color-text-main)',
-        marginBottom: '20px',
+        marginBottom: '16px',
     },
-    subtitle: {
+    methodSubtitle: {
         fontSize: '18px',
         color: 'var(--color-text-muted)',
         lineHeight: 1.6,
+    },
+    methodGrid: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+        maxWidth: '960px',
+        margin: '0 auto',
+    },
+    methodCard: {
+        backgroundColor: '#ffffff',
+        borderRadius: '16px',
+        padding: '32px 40px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+        border: '1px solid #e2e8f0',
+    },
+    methodCardHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '24px',
+        paddingBottom: '20px',
+        borderBottom: '1px solid #f1f5f9',
+    },
+    methodCardTitle: {
+        fontSize: '22px',
+        fontWeight: 700,
+        color: '#1e293b',
+        margin: 0,
+    },
+    methodList: {
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+    },
+    methodListItem: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '12px',
+        fontSize: '16px',
+        color: '#334155',
+        lineHeight: 1.6,
+        wordBreak: 'keep-all',
+    },
+    methodBullet: {
+        color: 'var(--color-primary)',
+        marginTop: '2px', // Align with text
+        flexShrink: 0,
+    },
+    textSmall: {
+        fontSize: '14px',
+        color: '#64748b',
+    },
+    methodListContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '6px',
+    },
+    nestedList: {
+        listStyle: 'none',
+        padding: 0,
+        margin: '4px 0 0 0',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+    },
+    nestedListItem: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '8px',
+        fontSize: '15.5px',
+        color: '#475569',
+        lineHeight: 1.6,
+        wordBreak: 'keep-all',
+    },
+    splitGrid: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '24px',
+        marginTop: '24px',
+        backgroundColor: '#f8fafc',
+        padding: '24px',
+        borderRadius: '12px',
+    },
+    splitGridLeft: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        flex: '1 1 300px',
+    },
+    splitGridRight: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        flex: '1 1 300px',
+    },
+    subHeading: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        fontSize: '16px',
+        fontWeight: 600,
+        color: '#1e293b',
+        margin: 0,
+    },
+    subList: {
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+    },
+    subListItem: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '8px',
+        fontSize: '15px',
+        color: '#475569',
+        lineHeight: 1.5,
+        wordBreak: 'keep-all',
+    },
+    listDot: {
+        color: '#94a3b8',
+        fontSize: '16px',
+        lineHeight: 1.5,
+        flexShrink: 0,
+    },
+    noticeBox: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '10px',
+        marginTop: '20px',
+        padding: '16px',
+        backgroundColor: '#fffbeb',
+        borderRadius: '8px',
+        color: '#b45309',
+        fontSize: '15px',
+        fontWeight: 500,
+        lineHeight: 1.5,
+        wordBreak: 'keep-all',
+    },
+    downloadButton: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '10px 20px',
+        backgroundColor: 'var(--color-primary)',
+        color: '#ffffff',
+        borderRadius: '8px',
+        fontSize: '14px',
+        fontWeight: 600,
+        textDecoration: 'none',
+        marginTop: '8px',
+        alignSelf: 'flex-start',
+        transition: 'background-color 0.2s',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    },
+    typeGrid: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '24px',
+    },
+    typeCard: {
+        backgroundColor: '#f8fafc',
+        padding: '24px',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        flex: '1 1 300px',
+    },
+    typeTitle: {
+        fontSize: '18px',
+        fontWeight: 700,
+        color: '#1e293b',
+        marginBottom: '16px',
+        margin: 0,
     },
     // FAQ Section
     faqSection: {
