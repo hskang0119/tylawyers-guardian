@@ -396,11 +396,11 @@ const styles = {
     navigatorWrapper: {
         position: 'relative',
         zIndex: 10,
-        marginTop: '-38px', // Overlaps Hero
+        marginTop: '-68px', // Overlaps Hero completely
         display: 'flex',
         justifyContent: 'center',
         padding: '10px 20px',
-        backgroundColor: 'rgba(248, 250, 252, 0.85)',
+        backgroundColor: 'rgba(248, 250, 252, 0.65)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
     },
