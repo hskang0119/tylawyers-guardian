@@ -261,11 +261,12 @@ const Home = () => {
                                     법률 전문가의 심층적인 사건 분석
                                 </h3>
                                 <p style={{ fontSize: '1.18rem', color: '#64748b', lineHeight: 1.7, wordBreak: 'keep-all', marginBottom: '16px' }}>
-                                    단순한 접수 대행이 아닌, 실무 경험이 풍부한 전문 변호사가 사안의 본질을 정확히 파악합니다.
+                                    단순한 접수 대행이 아닌, 실무 경험이 풍부한 변호사들이 전문적인 서비스를 제공합니다.
                                 </p>
                                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#64748b', fontSize: '1.07rem', lineHeight: 1.7 }}>
-                                    <li style={{ marginBottom: '8px' }}><strong>법률적 성격 정밀 판별:</strong> 접수된 사안이 직장 내 괴롭힘, 성희롱 등 관련 법령상 어디에 해당되는지 법리적 관점에서 심층 검토합니다.</li>
-                                    <li style={{ marginBottom: '8px' }}><strong>실효성 있는 조력 제공:</strong> 사안별로 필요한 증거 확보 방안, 조사 절차 준수 여부 등 실질적인 해결을 위한 전문 가이드라인을 제시합니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>사실관계를 신속·정확하게 판별:</strong> 수사 및 인사·징계위원회 경력을 보유한 변호사들이 신속·정확하게 사실관계를 파악합니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>법률적 성격 정밀 판단:</strong> 접수된 사안이 직장 내 괴롭힘, 성희롱 등 관련 법령상 어디에 해당되는지 법리적 관점에서 심층 검토합니다.</li>
+                                    <li style={{ marginBottom: '8px' }}><strong>적법성 및 적정성 확보:</strong> 고도의 전문성을 바탕으로 적법성 확보는 물론 문제의 실질적인 해결을 위한 전문적인 자문을 제시합니다.</li>
                                     <li><strong>객관성 및 공정성 유지:</strong> 법무법인 TY의 이름을 걸고 중립적인 위치에서 사안을 분석하여 고객사와 신고자 모두가 신뢰할 수 있는 결과를 도출합니다.</li>
                                 </ul>
                             </div>
