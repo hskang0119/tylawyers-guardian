@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Hero from '../components/Hero';
+import { supabase } from '../supabaseClient';
 
 const Partner = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Partner = () => {
         content: '',
         agree: false,
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -20,16 +22,57 @@ const Partner = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isSubmitting) return;
+
         if (!formData.agree) {
             alert('개인정보 수집 및 이용에 동의해주세요.');
             return;
         }
-        // Validate other fields if necessary
-        console.log('Form submitted:', formData);
-        alert('도입 문의가 접수되었습니다. (현재는 UI 테스트 모드입니다)');
-        // In a real app, send data to Supabase or backend here
+
+        setIsSubmitting(true);
+
+        try {
+            const { data, error } = await supabase
+                .from('inquiries')
+                .insert([
+                    {
+                        company_name: formData.company,
+                        contact_name: formData.name,
+                        department: formData.department,
+                        email: formData.email,
+                        phone: formData.phone,
+                        content: formData.content,
+                    }
+                ]);
+
+            if (error) {
+                console.error('Supabase insert error:', error);
+                alert('도입 문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                return;
+            }
+
+            alert('도입 문의가 성공적으로 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+
+            // Reset form
+            setFormData({
+                company: '',
+                name: '',
+                department: '',
+                email: '',
+                phone: '',
+                content: '',
+                agree: false,
+            });
+
+        } catch (err) {
+            console.error('Unexpected error during submission:', err);
+            alert('요청을 처리하는 중 문제가 발생했습니다.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (

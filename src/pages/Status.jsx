@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Search, Lock, FileText, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import Hero from '../components/Hero';
+import { supabase } from '../supabaseClient';
 
 const Status = () => {
     const location = useLocation();
@@ -12,32 +13,75 @@ const Status = () => {
     });
     const [isSearched, setIsSearched] = useState(false);
     const [statusData, setStatusData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        setErrorMsg(''); // clear error when typing
     };
 
-    const performSearch = (receiptNum, pw) => {
+    const performSearch = async (receiptNum, pw) => {
         if (!receiptNum || !pw) {
             alert('접수번호와 비밀번호를 모두 입력해주세요.');
             return;
         }
 
-        // Simulate API call and response
-        setIsSearched(true);
+        setIsLoading(true);
+        setErrorMsg('');
 
-        // Mocking a successful response for demonstration (Initial State)
-        const today = new Date();
-        const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
+        try {
+            // Query Supabase for the specific ticket and password
+            const { data, error } = await supabase
+                .from('reports')
+                .select('*')
+                .eq('ticket_number', receiptNum)
+                .eq('password_hash', pw)
+                .single();
 
-        setStatusData({
-            receiptNumber: receiptNum,
-            date: formattedDate,
-            type: '기타 인권침해',
-            currentStep: 0, // 0: 접수, 1: 검토중, 2: 조사중, 3: 완료
-            lawyerFeedback: '신고가 정상적으로 접수되었으며, 현재 담당 변호사 배정 및 초기 검토를 대기 중입니다. 검토가 시작되면 이곳에 변호사의 의견이 업데이트됩니다.'
-        });
+            if (error || !data) {
+                console.error('Search error:', error);
+                setErrorMsg('일치하는 신고 내역이 없거나 비밀번호가 틀렸습니다.');
+                setIsSearched(false);
+                return;
+            }
+
+            // Map database status to step index
+            let stepIndex = 0;
+            if (data.status === 'RECEIVED') stepIndex = 0;
+            else if (data.status === 'REVIEWING') stepIndex = 1;
+            else if (data.status === 'INVESTIGATING') stepIndex = 2;
+            else if (data.status === 'COMPLETED') stepIndex = 3;
+
+            // Format date
+            const createdDate = new Date(data.created_at);
+            const formattedDate = `${createdDate.getFullYear()}-${String(createdDate.getMonth() + 1).padStart(2, '0')}-${String(createdDate.getDate()).padStart(2, '0')} ${String(createdDate.getHours()).padStart(2, '0')}:${String(createdDate.getMinutes()).padStart(2, '0')}`;
+
+            const updatedDate = new Date(data.updated_at);
+            const formattedUpdatedDate = `${updatedDate.getFullYear()}-${String(updatedDate.getMonth() + 1).padStart(2, '0')}-${String(updatedDate.getDate()).padStart(2, '0')} ${String(updatedDate.getHours()).padStart(2, '0')}:${String(updatedDate.getMinutes()).padStart(2, '0')}`;
+
+            let displayType = '기타 인권침해';
+            if (data.report_type === 'sexual_harassment') displayType = '성희롱 / 성폭력';
+            else if (data.report_type === 'harassment') displayType = '직장 내 괴롭힘';
+            else if (data.report_type === 'corruption') displayType = '부패 / 비리';
+
+            setStatusData({
+                receiptNumber: data.ticket_number,
+                date: formattedDate,
+                updatedDate: formattedUpdatedDate,
+                type: displayType,
+                currentStep: stepIndex, // 0: 접수, 1: 검토중, 2: 조사중, 3: 완료
+                lawyerFeedback: data.lawyer_feedback || '신고가 정상적으로 접수되었으며, 현재 담당 변호사 배정 및 초기 검토를 대기 중입니다. 검토가 시작되면 이곳에 변호사의 의견이 업데이트됩니다.'
+            });
+
+            setIsSearched(true);
+        } catch (err) {
+            console.error('Unexpected search error:', err);
+            setErrorMsg('조회 중 오류가 발생했습니다.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -84,10 +128,18 @@ const Status = () => {
                                     placeholder="비밀번호 입력"
                                 />
                             </div>
-                            <button type="submit" style={styles.submitButton}>
-                                확인
+                            <button type="submit" style={styles.submitButton} disabled={isLoading}>
+                                {isLoading ? '조회중...' : '확인'}
                             </button>
                         </form>
+
+                        {errorMsg && (
+                            <div style={{ color: '#fca5a5', marginTop: '16px', fontSize: '16px' }}>
+                                <AlertCircle size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
+                                {errorMsg}
+                            </div>
+                        )}
+
                         <p style={styles.cardInfoText}>
                             · 신고서 제출 시 할당된 접수번호와 비밀번호를 입력해 주세요.
                         </p>
@@ -138,13 +190,12 @@ const Status = () => {
                                 </h3>
                             </div>
                             <div style={styles.feedbackContent}>
-                                <p style={{ lineHeight: 1.7, color: 'var(--color-text-main)' }}>
-                                    {statusData.lawyerFeedback}
-                                </p>
+                                <div style={{ lineHeight: 1.7, color: 'var(--color-text-main)' }} dangerouslySetInnerHTML={{ __html: statusData.lawyerFeedback?.replace(/\n/g, '<br/>') }}>
+                                </div>
                             </div>
                             <div style={styles.feedbackFooter}>
                                 <Clock size={14} style={{ marginRight: '6px' }} />
-                                최근 업데이트: 2023-11-05 09:15
+                                최근 업데이트: {statusData.updatedDate}
                             </div>
                         </div>
 

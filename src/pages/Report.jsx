@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css'; // Implements standard Quill theme
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
+import { supabase } from '../supabaseClient';
 
 const Report = () => {
     const location = useLocation();
@@ -12,6 +13,7 @@ const Report = () => {
     const [currentStep, setCurrentStep] = useState(1); // 1 to 5
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [ticketNumber, setTicketNumber] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Define mock partner list for autocomplete functionality
     const PARTNER_LIST = [
@@ -90,12 +92,14 @@ const Report = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // New validation for required fields
-        if (!formData.title || !formData.content) {
-            alert('필수 입력 항목을 모두 확인해주세요.');
+        if (isSubmitting) return;
+
+        // Validation for required fields
+        if (!formData.title || !formData.content || formData.content === '<p><br></p>') {
+            alert('필수 입력 항목(제목, 내용)을 모두 확인해주세요.');
             return;
         }
 
@@ -119,21 +123,49 @@ const Report = () => {
             return;
         }
 
-        // Generate dynamic ticket number: TY-YYYY-XXXX (where XXXX is a random 4-digit number)
-        const currentYear = new Date().getFullYear();
-        const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-        const generatedTicket = `TY-${currentYear}-${randomSuffix}`;
-        setTicketNumber(generatedTicket);
+        setIsSubmitting(true);
 
-        // Simulate API call, now including partner information
-        console.log('Submitting report:', {
-            partnerName: partnerName,
-            type: reportType,
-            ticketNumber: generatedTicket,
-            ...formData
-        });
-        setCurrentStep(4);
-        window.scrollTo(0, 0);
+        try {
+            // Generate dynamic ticket number: TY-YYYY-XXXX
+            const currentYear = new Date().getFullYear();
+            const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+            const generatedTicket = `TY-${currentYear}-${randomSuffix}`;
+            setTicketNumber(generatedTicket);
+
+            // Supabase Insert
+            const { data, error } = await supabase
+                .from('reports')
+                .insert([
+                    {
+                        ticket_number: generatedTicket,
+                        partner_name: partnerName,
+                        reporter_name: formData.targetName || null,
+                        reporter_phone: formData.targetPhone || null,
+                        reporter_email: formData.targetEmail || null,
+                        report_type: reportType,
+                        title: formData.title,
+                        content: formData.content,
+                        password_hash: formData.password, // IMPORTANT: In a real prod app, hash this before sending or via Edge Function
+                    }
+                ]);
+
+            if (error) {
+                console.error('Supabase insert error:', error);
+                alert('신고 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                setIsSubmitting(false);
+                return;
+            }
+
+            // Success
+            setCurrentStep(4);
+            window.scrollTo(0, 0);
+
+        } catch (err) {
+            console.error('Unexpected error during submission:', err);
+            alert('요청을 처리하는 중 문제가 발생했습니다.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleSearchChange = (e) => {
@@ -193,7 +225,7 @@ const Report = () => {
                 <div className="container" style={styles.contentWrapper}>
 
                     {/* Progress Stepper - Redesigned */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '48px', width: '100%', maxWidth: '1200px', margin: '0 auto 48px auto' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '48px', width: '100%', maxWidth: '960px', margin: '0 auto 48px auto' }}>
                         {[
                             { step: 1, label: '고객사 선택' },
                             { step: 2, label: '개인정보 수집 · 이용 동의' },
