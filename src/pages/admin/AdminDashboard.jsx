@@ -7,9 +7,16 @@ const AdminDashboard = () => {
         reports: {
             total: 0,
             byStatus: {
-                received: 0,
-                investigating: 0,
-                completed: 0
+                RECEIVED: 0,
+                BASIC_REVIEWING: 0,
+                BASIC_COMPLETED: 0,
+                BASIC_REPORTED: 0,
+                DEEP_INVESTIGATING: 0,
+                DEEP_COMPLETED: 0,
+                DEEP_REPORTED: 0,
+                LEGACY_REVIEWING: 0, // Fallback for old data
+                LEGACY_INVESTIGATING: 0, // Fallback for old data
+                LEGACY_COMPLETED: 0 // Fallback for old data
             },
             byType: {
                 sexualHarassment: 0,
@@ -36,14 +43,31 @@ const AdminDashboard = () => {
                 if (reportsError) throw reportsError;
 
                 // Group reports
-                let rStatus = { received: 0, investigating: 0, completed: 0 };
+                let rStatus = {
+                    RECEIVED: 0,
+                    BASIC_REVIEWING: 0,
+                    BASIC_COMPLETED: 0,
+                    BASIC_REPORTED: 0,
+                    DEEP_INVESTIGATING: 0,
+                    DEEP_COMPLETED: 0,
+                    DEEP_REPORTED: 0,
+                    LEGACY_REVIEWING: 0,
+                    LEGACY_INVESTIGATING: 0,
+                    LEGACY_COMPLETED: 0
+                };
                 let rType = { sexualHarassment: 0, harassment: 0, corruption: 0, others: 0 };
 
                 reportsData.forEach(r => {
-                    // Status grouping
-                    if (r.status === 'RECEIVED') rStatus.received++;
-                    else if (['COMPLETED'].includes(r.status)) rStatus.completed++;
-                    else rStatus.investigating++; // Anything else (reviewing, investigating, etc.)
+                    // Exact status mapping
+                    if (rStatus[r.status] !== undefined) {
+                        rStatus[r.status]++;
+                    } else if (r.status === 'REVIEWING') {
+                        rStatus.LEGACY_REVIEWING++;
+                    } else if (r.status === 'INVESTIGATING') {
+                        rStatus.LEGACY_INVESTIGATING++;
+                    } else if (r.status === 'COMPLETED') {
+                        rStatus.LEGACY_COMPLETED++;
+                    }
 
                     // Type grouping (handle both English legacy keys and Korean strings)
                     const type = r.report_type;
@@ -115,18 +139,38 @@ const AdminDashboard = () => {
                             <Activity size={18} color="#64748b" />
                             <h3 style={styles.cardTitle}>진행단계별</h3>
                         </div>
+                        {/* First Row of 3 Steps */}
+                        <div style={{ ...styles.statsRow, marginBottom: '16px' }}>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>신고접수 완료</span>
+                                <span style={{ ...styles.statValue, color: '#b45309' }}>{stats.reports.byStatus.RECEIVED}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>기초조사 중</span>
+                                <span style={{ ...styles.statValue, color: '#1d4ed8' }}>{stats.reports.byStatus.BASIC_REVIEWING + stats.reports.byStatus.LEGACY_REVIEWING}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>기초조사 완료</span>
+                                <span style={{ ...styles.statValue, color: '#1d4ed8' }}>{stats.reports.byStatus.BASIC_COMPLETED}</span>
+                            </div>
+                        </div>
+                        {/* Second Row of 4 Steps */}
                         <div style={styles.statsRow}>
                             <div style={styles.statItem}>
-                                <span style={styles.statLabel}>신규 접수 (대기)</span>
-                                <span style={{ ...styles.statValue, color: '#b45309' }}>{stats.reports.byStatus.received}</span>
+                                <span style={styles.statLabel}>기초조사 결과 보고</span>
+                                <span style={{ ...styles.statValue, color: '#1d4ed8' }}>{stats.reports.byStatus.BASIC_REPORTED}</span>
                             </div>
                             <div style={styles.statItem}>
-                                <span style={styles.statLabel}>조사 진행 중</span>
-                                <span style={{ ...styles.statValue, color: '#1d4ed8' }}>{stats.reports.byStatus.investigating}</span>
+                                <span style={styles.statLabel}>심층조사 중</span>
+                                <span style={{ ...styles.statValue, color: '#6d28d9' }}>{stats.reports.byStatus.DEEP_INVESTIGATING + stats.reports.byStatus.LEGACY_INVESTIGATING}</span>
                             </div>
                             <div style={styles.statItem}>
-                                <span style={styles.statLabel}>처리 완료</span>
-                                <span style={{ ...styles.statValue, color: '#15803d' }}>{stats.reports.byStatus.completed}</span>
+                                <span style={styles.statLabel}>심층조사 완료</span>
+                                <span style={{ ...styles.statValue, color: '#6d28d9' }}>{stats.reports.byStatus.DEEP_COMPLETED}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>심층조사 결과 보고</span>
+                                <span style={{ ...styles.statValue, color: '#15803d' }}>{stats.reports.byStatus.DEEP_REPORTED + stats.reports.byStatus.LEGACY_COMPLETED}</span>
                             </div>
                         </div>
                     </div>
