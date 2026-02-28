@@ -52,12 +52,13 @@ const AdminReports = () => {
     };
 
     const getTypeLabel = (type) => {
+        // Fallback mapping for older reports saved with English keys
         const typeMap = {
-            'corruption': '부패 / 비리',
-            'harassment': '직장 내 괴롭힘',
-            'sexual_harassment': '성희롱 / 성폭력'
+            'corruption': '성희롱 / 성폭력',
+            'harassment': '직장내 괴롭힘',
+            'sexual_harassment': '기타 인권침해'
         };
-        return typeMap[type] || '기타 인권침해';
+        return typeMap[type] || type;
     };
 
     return (

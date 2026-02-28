@@ -1,6 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../../supabaseClient';
 
 const AdminDashboard = () => {
+    const [stats, setStats] = useState({
+        newReports: 0,
+        reviewingReports: 0,
+        newInquiries: 0
+    });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                // Fetch new reports count
+                const { count: newReportsCount } = await supabase
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'RECEIVED');
+
+                // Fetch reviewing reports count
+                const { count: reviewingCount } = await supabase
+                    .from('reports')
+                    .select('*', { count: 'exact', head: true })
+                    .in('status', ['REVIEWING', 'INVESTIGATING']);
+
+                // Fetch new inquiries count
+                const { count: newInquiriesCount } = await supabase
+                    .from('inquiries')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'UNREAD');
+
+                setStats({
+                    newReports: newReportsCount || 0,
+                    reviewingReports: reviewingCount || 0,
+                    newInquiries: newInquiriesCount || 0
+                });
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        };
+
+        fetchStats();
+    }, []);
+
     return (
         <div style={styles.container}>
             <div style={styles.header}>
@@ -9,18 +50,17 @@ const AdminDashboard = () => {
             </div>
 
             <div style={styles.statsGrid}>
-                {/* Temporary placeholder cards */}
                 <div style={styles.statCard}>
                     <h3 style={styles.cardTitle}>신규 접수</h3>
-                    <p style={styles.cardNumber}>0</p>
+                    <p style={styles.cardNumber}>{stats.newReports}</p>
                 </div>
                 <div style={styles.statCard}>
-                    <h3 style={styles.cardTitle}>검토 중</h3>
-                    <p style={styles.cardNumber}>0</p>
+                    <h3 style={styles.cardTitle}>검토 및 조사 중</h3>
+                    <p style={styles.cardNumber}>{stats.reviewingReports}</p>
                 </div>
                 <div style={styles.statCard}>
                     <h3 style={styles.cardTitle}>신규 문의</h3>
-                    <p style={styles.cardNumber}>0</p>
+                    <p style={styles.cardNumber}>{stats.newInquiries}</p>
                 </div>
             </div>
         </div>
