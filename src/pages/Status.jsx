@@ -47,22 +47,25 @@ const Status = () => {
                 return;
             }
 
-            // Map database status to flowchart step index (0 to 4)
+            // Map database status to flowchart step index (0 to 6)
             let stepIndex = 0;
             switch (data.status) {
                 case 'RECEIVED': stepIndex = 0; break;
                 case 'BASIC_REVIEWING':
-                case 'BASIC_COMPLETED':
                 case 'REVIEWING': // Legacy
                     stepIndex = 1; break;
-                case 'DEEP_INVESTIGATING':
-                case 'DEEP_COMPLETED':
-                case 'INVESTIGATING': // Legacy
+                case 'BASIC_COMPLETED':
                     stepIndex = 2; break;
                 case 'BASIC_REPORTED':
-                case 'DEEP_REPORTED':
-                case 'COMPLETED': // Fold COMPLETED (if legacy records exist) into Step 4
                     stepIndex = 3; break;
+                case 'DEEP_INVESTIGATING':
+                case 'INVESTIGATING': // Legacy
+                    stepIndex = 4; break;
+                case 'DEEP_COMPLETED':
+                    stepIndex = 5; break;
+                case 'DEEP_REPORTED':
+                case 'COMPLETED': // Fold COMPLETED (if legacy records exist)
+                    stepIndex = 6; break;
                 default: stepIndex = 0; break;
             }
 
@@ -129,10 +132,13 @@ const Status = () => {
     };
 
     const steps = [
-        { label: '신고접수', desc: '신고사항 파악' },
-        { label: '기초조사', desc: '기초 사실관계 조사' },
-        { label: '심층조사', desc: '상세 진술 및 증거 확보' },
-        { label: '결과보고', desc: '조사 결과 점검/보고' },
+        { label: '신고접수 완료', desc: '신고사항 파악' },
+        { label: '기초조사 중', desc: '기초 사실관계 조사' },
+        { label: '기초조사 완료', desc: '조사 담당자 보고' },
+        { label: '기초조사 결과 보고', desc: '기초조사 결과 점검/보고' },
+        { label: '심층조사 중', desc: '상세 진술 및 증거 확보' },
+        { label: '심층조사 완료', desc: '조사 담당자 보고' },
+        { label: '심층조사 결과 보고', desc: '최종 조사 결과 점검/보고' },
     ];
 
     return (
