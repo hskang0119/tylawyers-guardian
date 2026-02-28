@@ -228,7 +228,7 @@ const Home = () => {
                         인권상담센터의 3대 핵심 가치
                     </h2>
 
-                    <div className="core-values-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px', paddingTop: '40px' }}>
+                    <div className="core-values-container" style={{ display: 'flex', flexDirection: 'column', gap: '150px', paddingTop: '40px' }}>
                         {/* Value 1 */}
                         <div className="core-value-row" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                             <div className="core-value-image" style={{ width: '65%', height: '400px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
