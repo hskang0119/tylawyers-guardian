@@ -34,6 +34,13 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         const fetchStats = async () => {
+            let reportsStats = {
+                total: 0,
+                byStatus: { RECEIVED: 0, BASIC_REVIEWING: 0, BASIC_COMPLETED: 0, BASIC_REPORTED: 0, DEEP_INVESTIGATING: 0, DEEP_COMPLETED: 0, DEEP_REPORTED: 0, LEGACY_REVIEWING: 0, LEGACY_INVESTIGATING: 0, LEGACY_COMPLETED: 0 },
+                byType: { sexualHarassment: 0, harassment: 0, corruption: 0, others: 0 }
+            };
+            let inquiriesStats = { total: 0, unread: 0, read: 0 };
+
             try {
                 // Fetch reports data
                 const { data: reportsData, error: reportsError } = await supabase
@@ -42,47 +49,28 @@ const AdminDashboard = () => {
 
                 if (reportsError) throw reportsError;
 
-                // Group reports
-                let rStatus = {
-                    RECEIVED: 0,
-                    BASIC_REVIEWING: 0,
-                    BASIC_COMPLETED: 0,
-                    BASIC_REPORTED: 0,
-                    DEEP_INVESTIGATING: 0,
-                    DEEP_COMPLETED: 0,
-                    DEEP_REPORTED: 0,
-                    LEGACY_REVIEWING: 0,
-                    LEGACY_INVESTIGATING: 0,
-                    LEGACY_COMPLETED: 0
-                };
-                let rType = { sexualHarassment: 0, harassment: 0, corruption: 0, others: 0 };
+                let rStatus = { ...reportsStats.byStatus };
+                let rType = { ...reportsStats.byType };
 
                 reportsData.forEach(r => {
-                    // Exact status mapping
-                    if (rStatus[r.status] !== undefined) {
-                        rStatus[r.status]++;
-                    } else if (r.status === 'REVIEWING') {
-                        rStatus.LEGACY_REVIEWING++;
-                    } else if (r.status === 'INVESTIGATING') {
-                        rStatus.LEGACY_INVESTIGATING++;
-                    } else if (r.status === 'COMPLETED') {
-                        rStatus.LEGACY_COMPLETED++;
-                    }
+                    if (rStatus[r.status] !== undefined) rStatus[r.status]++;
+                    else if (r.status === 'REVIEWING') rStatus.LEGACY_REVIEWING++;
+                    else if (r.status === 'INVESTIGATING') rStatus.LEGACY_INVESTIGATING++;
+                    else if (r.status === 'COMPLETED') rStatus.LEGACY_COMPLETED++;
 
-                    // Type grouping (handle both English legacy keys and Korean strings)
                     const type = r.report_type;
-                    if (type === 'sexual_harassment' || type === '성희롱 / 성폭력' || type === '직장내 성희롱' || type === 'corruption') {
-                        // Note: older bug saved sexual harassment as corruption for a while, so grouping all historical ones here as requested
-                        rType.sexualHarassment++;
-                    } else if (type === 'harassment' || type === '직장내 괴롭힘' || type === '직장 내 괴롭힘') {
-                        rType.harassment++;
-                    } else if (type === '기타 인권침해' || type === '부패 / 비리') {
-                        rType.corruption++;
-                    } else {
-                        rType.others++;
-                    }
+                    if (type === 'sexual_harassment' || type === '성희롱 / 성폭력' || type === '직장내 성희롱' || type === 'corruption') rType.sexualHarassment++;
+                    else if (type === 'harassment' || type === '직장내 괴롭힘' || type === '직장 내 괴롭힘') rType.harassment++;
+                    else if (type === '기타 인권침해' || type === '부패 / 비리') rType.corruption++;
+                    else rType.others++;
                 });
 
+                reportsStats = { total: reportsData.length, byStatus: rStatus, byType: rType };
+            } catch (error) {
+                console.error('Error fetching reports stats:', error);
+            }
+
+            try {
                 // Fetch inquiries data
                 const { data: inquiriesData, error: inquiriesError } = await supabase
                     .from('inquiries')
@@ -90,29 +78,26 @@ const AdminDashboard = () => {
 
                 if (inquiriesError) throw inquiriesError;
 
+                console.log("Fetched Inquiries Data:", inquiriesData);
+
                 let iUnread = 0;
                 let iRead = 0;
 
                 inquiriesData.forEach(i => {
-                    if (i.status === 'UNREAD' || !i.status) iUnread++;
+                    const status = i.status ? i.status.toUpperCase() : 'UNREAD'; // Normalize to uppercase just in case
+                    if (status === 'UNREAD') iUnread++;
                     else iRead++;
                 });
 
-                setStats({
-                    reports: {
-                        total: reportsData.length,
-                        byStatus: rStatus,
-                        byType: rType
-                    },
-                    inquiries: {
-                        total: inquiriesData.length,
-                        unread: iUnread,
-                        read: iRead
-                    }
-                });
+                inquiriesStats = { total: inquiriesData.length, unread: iUnread, read: iRead };
             } catch (error) {
-                console.error('Error fetching stats:', error);
+                console.error('Error fetching inquiries stats:', error);
             }
+
+            setStats({
+                reports: reportsStats,
+                inquiries: inquiriesStats
+            });
         };
 
         fetchStats();
