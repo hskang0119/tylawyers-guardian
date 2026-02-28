@@ -61,8 +61,8 @@ const Status = () => {
                     stepIndex = 2; break;
                 case 'BASIC_REPORTED':
                 case 'DEEP_REPORTED':
+                case 'COMPLETED': // Fold COMPLETED (if legacy records exist) into Step 4
                     stepIndex = 3; break;
-                case 'COMPLETED': stepIndex = 4; break;
                 default: stepIndex = 0; break;
             }
 
@@ -74,7 +74,7 @@ const Status = () => {
                 'DEEP_INVESTIGATING': '심층조사 중',
                 'DEEP_COMPLETED': '심층조사 완료',
                 'DEEP_REPORTED': '심층조사 결과 보고',
-                'COMPLETED': '구제조치 완료',
+                'COMPLETED': '심층조사 결과 보고', // Legacy fallback changed to max stage
                 'REVIEWING': '기초조사 중', // Legacy
                 'INVESTIGATING': '심층조사 중' // Legacy
             };
@@ -133,7 +133,6 @@ const Status = () => {
         { label: '기초조사', desc: '기초 사실관계 조사' },
         { label: '심층조사', desc: '상세 진술 및 증거 확보' },
         { label: '결과보고', desc: '조사 결과 점검/보고' },
-        { label: '구제조치', desc: '최종 조치 및 결과 안내' },
     ];
 
     return (

@@ -233,7 +233,6 @@ const Info = () => {
                                     { id: 2, title: '기초조사', icon: <FileSearch size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
                                     { id: 3, title: '심층조사', icon: <Users size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
                                     { id: 4, title: '결과보고', icon: <ClipboardCheck size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                    { id: 5, title: '구제조치', icon: <Shield size={32} color="var(--color-primary)" strokeWidth={1.8} /> },
                                 ].map((step, index) => (
                                     <React.Fragment key={step.id}>
                                         <div style={styles.flowStep}>
@@ -242,7 +241,7 @@ const Info = () => {
                                             </div>
                                             <span style={styles.flowStepTitle}>{step.title}</span>
                                         </div>
-                                        {index < 4 && (
+                                        {index < 3 && (
                                             <div style={styles.flowArrowBox}>
                                                 <ChevronRight size={32} color="#0f172a" strokeWidth={2} />
                                             </div>
@@ -305,19 +304,6 @@ const Info = () => {
                                     <ul style={styles.stepDetailList}>
                                         <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 수집된 증거와 진술을 종합하여 사건 성립 여부에 대한 최종 법률 의견서를 작성합니다.</li>
                                         <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 작성된 보고서는 보안이 유지된 상태로 의사결정권자에게 전달되어 합리적인 판단의 근거가 됩니다.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {/* 5 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>05</span>
-                                    <h3 style={styles.stepDetailTitle}>구제조치</h3>
-                                </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 보고된 결과를 바탕으로 고객사는 징계위원회 개최, 배치전환 등 적절한 조치를 취합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 당 법무법인은 조치 과정이 적법하고 공정하게 이루어질 수 있도록 자문을 제공합니다.</li>
                                     </ul>
                                 </div>
                             </div>
