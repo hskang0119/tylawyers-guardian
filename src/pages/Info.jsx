@@ -396,13 +396,11 @@ const styles = {
     navigatorWrapper: {
         position: 'relative',
         zIndex: 10,
-        marginTop: '-68px', // Overlaps Hero completely
+        marginTop: '-45px', // Sit halfway over the hero section
         display: 'flex',
         justifyContent: 'center',
-        padding: '10px 20px',
-        backgroundColor: 'rgba(248, 250, 252, 0.65)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        padding: '0 20px', // Removed top/bottom padding to tighten the background
+        backgroundColor: 'transparent', // Fully transparent to let the hero image show through
     },
     navigatorContainer: {
         display: 'flex',
