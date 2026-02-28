@@ -49,7 +49,7 @@
 }
 
 .hero-headline {
-  font-size: 3.5rem;
+  font-size: 3.94rem;
   font-weight: 700;
   color: #FFFFFF;
   margin-bottom: 24px;
@@ -59,7 +59,7 @@
 }
 
 .hero-subheadline {
-  font-size: 1.15rem;
+  font-size: 1.29rem;
   color: #94A3B8;
   /* Slate gray, readable against dark bg */
   margin-bottom: 40px;
@@ -128,26 +128,26 @@
 }
 
 .action-title {
-  font-size: 1.75rem;
+  font-size: 1.97rem;
   font-weight: 700;
   margin-bottom: 24px;
 }
 
 .action-subtitle {
-  font-size: 1rem;
+  font-size: 1.13rem;
   margin-bottom: 20px;
   opacity: 0.9;
 }
 
 ul.action-subtitle-bottom {
-  font-size: 0.95rem;
+  font-size: 1.07rem;
   margin-top: auto;
   /* Push to the very bottom */
   margin-bottom: 0;
   opacity: 0.9;
   text-align: left;
   width: 100%;
-  line-height: 1.5;
+  line-height: 1.7;
   list-style: none;
   padding: 0;
 }
@@ -184,10 +184,10 @@ ul.action-subtitle-bottom {
 .action-input {
   width: 100%;
   height: 48px;
-  border-radius: 24px;
+  border-radius: 8px;
   border: none;
   padding: 0 20px;
-  font-size: 15px;
+  font-size: 17px;
   color: #333;
   outline: none;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -220,7 +220,7 @@ ul.action-subtitle-bottom {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -279,7 +279,7 @@ ul.action-subtitle-bottom {
   border: none;
   flex: 1;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -290,8 +290,8 @@ ul.action-subtitle-bottom {
 }
 
 .action-desc {
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: 0.96rem;
+  line-height: 1.7;
   opacity: 0.85;
 }
 
@@ -307,7 +307,7 @@ ul.action-subtitle-bottom {
 
 .section-title {
   text-align: center;
-  font-size: 2.25rem;
+  font-size: 2.53rem;
   font-weight: 700;
   color: var(--navy);
   margin-bottom: 60px;
@@ -378,7 +378,7 @@ ul.action-subtitle-bottom {
 }
 
 .core-value-content-overlap h3 {
-  font-size: 1.8rem;
+  font-size: 2.02rem;
   font-weight: 700;
   color: var(--navy);
   margin-bottom: 24px;
@@ -387,7 +387,7 @@ ul.action-subtitle-bottom {
 }
 
 .core-value-content-overlap p {
-  font-size: 1.05rem;
+  font-size: 1.18rem;
   color: #64748b;
   line-height: 1.8;
   word-break: keep-all;
@@ -432,7 +432,7 @@ ul.action-subtitle-bottom {
 
 .process-title {
   text-align: center;
-  font-size: 2.25rem;
+  font-size: 2.53rem;
   font-weight: 700;
   margin-bottom: 80px;
 }
@@ -483,22 +483,22 @@ ul.action-subtitle-bottom {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.69rem;
   font-weight: 700;
   margin-bottom: 24px;
   box-shadow: 0 0 0 8px rgba(2, 132, 199, 0.2);
 }
 
 .step-title {
-  font-size: 1.25rem;
+  font-size: 1.41rem;
   font-weight: 600;
   margin-bottom: 12px;
 }
 
 .step-desc {
   color: #cbd5e1;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1.07rem;
+  line-height: 1.7;
 }
 
 /* Section 4: Practice Areas */
@@ -538,7 +538,7 @@ ul.action-subtitle-bottom {
 }
 
 .area-info h3 {
-  font-size: 1.25rem;
+  font-size: 1.41rem;
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--navy);
@@ -546,7 +546,7 @@ ul.action-subtitle-bottom {
 
 .area-info p {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 1.07rem;
 }
 
 /* Section 5: Final CTA */
@@ -568,7 +568,7 @@ ul.action-subtitle-bottom {
 }
 
 .cta-headline {
-  font-size: 2.5rem;
+  font-size: 2.81rem;
   font-weight: 700;
   margin-bottom: 40px;
 }
@@ -584,7 +584,7 @@ ul.action-subtitle-bottom {
   color: var(--cerulean);
   padding: 16px 40px;
   border-radius: 999px;
-  font-size: 1.1rem;
+  font-size: 1.24rem;
   font-weight: 700;
   transition: transform 0.3s ease;
 }
@@ -599,7 +599,7 @@ ul.action-subtitle-bottom {
   border: 2px solid var(--white);
   padding: 16px 40px;
   border-radius: 999px;
-  font-size: 1.1rem;
+  font-size: 1.24rem;
   font-weight: 600;
   transition: all 0.3s ease;
 }
@@ -618,7 +618,7 @@ ul.action-subtitle-bottom {
   }
 
   .hero-headline {
-    font-size: 2.2rem;
+    font-size: 2.48rem;
   }
 
   .process-steps {

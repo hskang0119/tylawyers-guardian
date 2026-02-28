@@ -138,7 +138,7 @@ const Status = () => {
                                 </h3>
                             </div>
                             <div style={styles.feedbackContent}>
-                                <p style={{ lineHeight: 1.6, color: 'var(--color-text-main)' }}>
+                                <p style={{ lineHeight: 1.7, color: 'var(--color-text-main)' }}>
                                     {statusData.lawyerFeedback}
                                 </p>
                             </div>
@@ -173,28 +173,28 @@ const styles = {
         textAlign: 'center',
     },
     title: {
-        fontSize: '32px',
+        fontSize: '34px',
         fontWeight: 700,
         color: 'var(--color-text-main)',
         marginBottom: '16px',
     },
     subtitle: {
-        fontSize: '16px',
+        fontSize: '18px',
         color: 'var(--color-text-muted)',
-        lineHeight: 1.6,
+        lineHeight: 1.7,
     },
     searchFormContainer: {
         backgroundColor: '#3b82f6', // Bright blue matching Home page
         borderRadius: '16px',
         padding: '50px 40px', // Scaled down to match Report.jsx
-        maxWidth: '600px', // Scaled down to match Report.jsx
+        maxWidth: '960px', // Updated to match the global 960px rule
         margin: '0 auto',
         boxShadow: 'var(--shadow-lg)',
         color: 'var(--color-white)',
         textAlign: 'center',
     },
     cardTitle: {
-        fontSize: '28px', // Scaled down to match Report.jsx
+        fontSize: '30px', // Scaled down to match Report.jsx
         fontWeight: 700,
         marginBottom: '40px',
         color: 'var(--color-white)',
@@ -216,7 +216,7 @@ const styles = {
         width: '100%',
         height: '60px',
         padding: '0 24px',
-        fontSize: '18px',
+        fontSize: '20px',
         border: 'none',
         borderBottom: '1px solid #e5e7eb',
         outline: 'none',
@@ -226,7 +226,7 @@ const styles = {
         width: '100%',
         height: '60px',
         padding: '0 24px',
-        fontSize: '18px',
+        fontSize: '20px',
         border: 'none',
         outline: 'none',
         color: 'var(--color-text-main)',
@@ -235,14 +235,14 @@ const styles = {
         flex: 1, // Slightly narrower than inputs, but takes remaining space
         backgroundColor: '#172554', // Dark navy
         color: 'var(--color-white)',
-        fontSize: '22px',
+        fontSize: '24px',
         fontWeight: 700,
         border: 'none',
         cursor: 'pointer',
         transition: 'background-color 0.2s',
     },
     cardInfoText: {
-        fontSize: '16px',
+        fontSize: '18px',
         color: 'var(--color-white)',
         opacity: 0.9,
         textAlign: 'left',
@@ -253,6 +253,9 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         gap: '24px',
+        maxWidth: '960px',
+        margin: '0 auto',
+        width: '100%',
     },
     summaryCard: {
         backgroundColor: 'var(--color-white)',
@@ -270,21 +273,21 @@ const styles = {
         display: 'inline-block',
         backgroundColor: 'var(--color-accent)',
         color: 'var(--color-primary)',
-        fontSize: '13px',
+        fontSize: '15px',
         fontWeight: 600,
         padding: '4px 12px',
         borderRadius: '20px',
         marginBottom: '12px',
     },
     receiptText: {
-        fontSize: '24px',
+        fontSize: '26px',
         fontWeight: 700,
         margin: 0,
         color: 'var(--color-text-main)',
         letterSpacing: '1px',
     },
     dateLabel: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: 'var(--color-text-muted)',
     },
     stepperContainer: {
@@ -294,7 +297,7 @@ const styles = {
         border: '1px solid var(--color-border)',
     },
     sectionTitle: {
-        fontSize: '18px',
+        fontSize: '20px',
         fontWeight: 600,
         marginBottom: '24px',
     },
@@ -331,7 +334,7 @@ const styles = {
         flexShrink: 0,
     }),
     stepNumber: {
-        fontSize: '14px',
+        fontSize: '16px',
         fontWeight: 600,
     },
     stepTextContainer: {
@@ -339,13 +342,13 @@ const styles = {
         paddingTop: '6px',
     },
     stepLabel: (isActiveOrCompleted) => ({
-        fontSize: '16px',
+        fontSize: '18px',
         fontWeight: 600,
         color: isActiveOrCompleted ? 'var(--color-text-main)' : 'var(--color-text-light)',
         marginBottom: '4px',
     }),
     stepDesc: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: 'var(--color-text-muted)',
     },
     feedbackContainer: {
@@ -370,7 +373,7 @@ const styles = {
         alignItems: 'center',
         padding: '12px 24px',
         backgroundColor: '#F8FAFC',
-        fontSize: '13px',
+        fontSize: '15px',
         color: 'var(--color-text-muted)',
         borderTop: '1px solid #E2E8F0',
     },
@@ -381,7 +384,7 @@ const styles = {
         color: 'var(--color-text-muted)',
         border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-md)',
-        fontSize: '14px',
+        fontSize: '16px',
         fontWeight: 500,
         marginTop: '16px',
     }

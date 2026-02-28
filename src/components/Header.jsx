@@ -123,7 +123,7 @@ const styles = {
     },
     logoText: {
         fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif",
-        fontSize: '1.5rem', // Matched logo font size
+        fontSize: '1.69rem', // Matched logo font size
         fontWeight: 700, // Matched logo font weight
         color: '#1E3A8A', // Matched color-primary
         display: 'flex',
@@ -136,7 +136,7 @@ const styles = {
         fontWeight: 300,
     },
     logoSubtitle: {
-        fontSize: '16px',
+        fontSize: '18px',
         fontWeight: 500,
         color: '#111827', // Matched color-text-main
     },
@@ -152,7 +152,7 @@ const styles = {
     },
     navLink: {
         fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif",
-        fontSize: '1.1rem', // Increased font size to be more prominent
+        fontSize: '1.24rem', // Increased font size to be more prominent
         transition: 'color 0.2s',
         textDecoration: 'none',
     },
@@ -180,7 +180,7 @@ const styles = {
     mobileNavLink: {
         display: 'block',
         padding: '1.25rem 1.5rem', // Matching mobile link padding
-        fontSize: '1.1rem', // Matching mobile link font size
+        fontSize: '1.24rem', // Matching mobile link font size
         textDecoration: 'none',
         fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif",
     },

@@ -116,7 +116,7 @@ const Contact = () => {
                         </div>
                         <div style={styles.directionContentCol}>
                             <p style={styles.directionMainText}>뱅뱅사거리(중) 정류장 하차</p>
-                            <div style={{ marginTop: '12px', lineHeight: 1.6 }}>
+                            <div style={{ marginTop: '12px', lineHeight: 1.7 }}>
                                 <p style={styles.busText}><span style={{ color: '#1e3a8a', fontWeight: 600, marginRight: '8px' }}>간선</span> 140, 400, 402, 407, 420, 421, 440, 441, 462, 470, 471, 542</p>
                                 <p style={styles.busText}><span style={{ color: '#E11D48', fontWeight: 600, marginRight: '8px' }}>광역</span> 9100, 9200, 9201, 9300, M4403</p>
                             </div>
@@ -155,20 +155,22 @@ const styles = {
         justifyContent: 'center',
         gap: '12px',
         marginBottom: '24px',
+        maxWidth: '960px',
+        margin: '0 auto 24px auto',
     },
     sectionTitleEn: {
         color: '#1e3a8a', // Dark blue
-        fontSize: '24px',
+        fontSize: '26px',
         fontWeight: 800,
         letterSpacing: '0.5px',
     },
     sectionTitleSeparator: {
         color: '#ccc',
-        fontSize: '20px',
+        fontSize: '22px',
     },
     sectionTitleKo: {
         color: '#222',
-        fontSize: '22px',
+        fontSize: '24px',
         fontWeight: 700,
     },
     mapContainer: {
@@ -177,6 +179,8 @@ const styles = {
         alignItems: 'center',
         marginBottom: '40px',
         width: '100%',
+        maxWidth: '960px',
+        margin: '0 auto 40px auto',
     },
     mapWrapper: {
         width: '100%',
@@ -199,7 +203,7 @@ const styles = {
         borderRadius: '4px',
         textDecoration: 'none',
         fontWeight: 600,
-        fontSize: '15px',
+        fontSize: '17px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
@@ -214,7 +218,7 @@ const styles = {
         borderRadius: '4px',
         textDecoration: 'none',
         fontWeight: 600,
-        fontSize: '15px',
+        fontSize: '17px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
@@ -224,12 +228,14 @@ const styles = {
     },
     btnIcon: {
         fontWeight: 'bold',
-        fontSize: '16px',
+        fontSize: '18px',
     },
     contactCardsContainer: {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         gap: '16px',
+        maxWidth: '960px',
+        margin: '0 auto',
     },
     contactCard: {
         backgroundColor: '#fff',
@@ -247,16 +253,16 @@ const styles = {
         opacity: 0.9,
     },
     cardTitle: {
-        fontSize: '16px',
+        fontSize: '18px',
         fontWeight: 700,
         color: '#222',
         marginBottom: '12px',
         margin: '0 0 12px 0',
     },
     cardText: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: '#555',
-        lineHeight: 1.6,
+        lineHeight: 1.7,
         margin: 0,
         wordBreak: 'keep-all',
     },
@@ -265,6 +271,8 @@ const styles = {
         flexDirection: 'column',
         backgroundColor: '#fff',
         borderTop: '2px solid #f1f5f9',
+        maxWidth: '960px',
+        margin: '0 auto',
     },
     directionRow: {
         display: 'flex',
@@ -290,7 +298,7 @@ const styles = {
     },
     directionLabel: {
         fontWeight: 700,
-        fontSize: '15px',
+        fontSize: '17px',
         color: '#334155',
     },
     directionContentCol: {
@@ -299,13 +307,13 @@ const styles = {
         paddingTop: '6px',
     },
     directionMainText: {
-        fontSize: '15px',
+        fontSize: '17px',
         fontWeight: 600,
         color: '#1e3a8a',
         margin: '0 0 8px 0',
     },
     directionSubText: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: '#64748b',
         margin: 0,
     },
@@ -318,7 +326,7 @@ const styles = {
     },
     badge: {
         color: '#fff',
-        fontSize: '12px',
+        fontSize: '14px',
         fontWeight: 700,
         padding: '3px 8px',
         borderRadius: '4px',
@@ -326,17 +334,17 @@ const styles = {
     },
     transitStation: {
         fontWeight: 700,
-        fontSize: '14px',
+        fontSize: '16px',
         color: '#1e3a8a',
         marginLeft: '4px',
     },
     transitDesc: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: '#64748b',
     },
     busText: {
         margin: '0 0 6px 0',
-        fontSize: '14px',
+        fontSize: '16px',
         color: '#334155',
     }
 };

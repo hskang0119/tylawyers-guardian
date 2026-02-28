@@ -71,7 +71,7 @@ const styles = {
         gap: '4px',
     },
     infoLine: {
-        fontSize: '15px',
+        fontSize: '17px',
         color: 'var(--color-text-muted, #555)',
         display: 'flex',
         flexWrap: 'wrap',
@@ -81,7 +81,7 @@ const styles = {
     },
     divider: {
         color: 'var(--color-text-light, #999)',
-        fontSize: '13px',
+        fontSize: '15px',
         opacity: 0.6,
         userSelect: 'none',
     },
@@ -89,7 +89,7 @@ const styles = {
         marginTop: '16px',
     },
     copyright: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: 'var(--color-text-light, #999)',
         margin: 0,
     },

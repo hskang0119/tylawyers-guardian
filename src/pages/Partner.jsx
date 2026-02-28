@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { HelpCircle, FileText, Settings, Volume2, CheckSquare } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Partner = () => {
@@ -45,47 +44,6 @@ const Partner = () => {
                         법무법인 티와이로이어스가 직접 운영하며 철저한 독립성을 보장합니다.<br />
                         개인정보 유출 걱정 없이 안전하게 기업 내부 신고 시스템을 운영할 수 있습니다.
                     </p>
-                </div>
-
-                {/* Procedure Section */}
-                <div style={styles.sectionBlock}>
-                    <h3 style={styles.sectionTitle}>도입 절차 안내</h3>
-                    <div style={styles.procedureContainer}>
-                        <div style={styles.step}>
-                            <div style={styles.stepIconWrapper}>
-                                <HelpCircle size={32} color="var(--color-primary)" />
-                            </div>
-                            <p style={styles.stepTitle}>문의 글 접수</p>
-                        </div>
-                        <div className="stepArrow" style={styles.stepArrow}>▶</div>
-                        <div style={styles.step}>
-                            <div style={styles.stepIconWrapper}>
-                                <FileText size={32} color="var(--color-primary)" />
-                            </div>
-                            <p style={styles.stepTitle}>검토 및 접수 안내</p>
-                        </div>
-                        <div className="stepArrow" style={styles.stepArrow}>▶</div>
-                        <div style={styles.step}>
-                            <div style={styles.stepIconWrapper}>
-                                <Settings size={32} color="var(--color-primary)" />
-                            </div>
-                            <p style={styles.stepTitle}>세팅 및 계약 진행</p>
-                        </div>
-                        <div className="stepArrow" style={styles.stepArrow}>▶</div>
-                        <div style={styles.step}>
-                            <div style={styles.stepIconWrapper}>
-                                <Volume2 size={32} color="var(--color-primary)" />
-                            </div>
-                            <p style={styles.stepTitle}>운영 준비 완료</p> {/* Changed from 공지 및 교육 based on context */}
-                        </div>
-                        <div className="stepArrow" style={styles.stepArrow}>▶</div>
-                        <div style={styles.step}>
-                            <div style={styles.stepIconWrapper}>
-                                <CheckSquare size={32} color="var(--color-primary)" />
-                            </div>
-                            <p style={styles.stepTitle}>시스템 도입</p> {/* Changed from 도입 완료 */}
-                        </div>
-                    </div>
                 </div>
 
                 {/* Inquiry Form */}
@@ -226,65 +184,32 @@ const styles = {
     introSection: {
         textAlign: 'center',
         marginBottom: '60px',
+        maxWidth: '960px',
+        margin: '0 auto 60px auto',
     },
     introText: {
         fontSize: '18px',
-        lineHeight: 1.6,
-        color: 'var(--color-text-main)',
+        lineHeight: 1.7,
+        color: 'var(--color-text-muted)',
         fontWeight: 500,
     },
     sectionBlock: {
         backgroundColor: 'var(--color-white)',
-        padding: '50px',
-        borderRadius: 'var(--radius-lg)',
-        boxShadow: 'var(--shadow-sm)',
-        border: '1px solid var(--color-border)',
+        padding: '40px', // Tighter padding compared to 50px
+        borderRadius: '12px',
+        boxShadow: '0 4px 15px -3px rgba(15, 44, 89, 0.05)', // Match Report formSection
+        border: '1px solid #e2e8f0',
         marginBottom: '40px',
+        maxWidth: '960px',
+        margin: '0 auto 40px auto',
     },
     sectionTitle: {
-        fontSize: '20px', // Reduced font size
+        fontSize: '24px',
         fontWeight: 700,
-        color: 'var(--color-text-main)',
+        color: 'var(--color-primary)', // Emphasize with brand navy
         marginBottom: '32px',
         textAlign: 'center',
         display: 'block',
-    },
-    procedureContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: '#f1f5f9',
-        padding: '40px',
-        borderRadius: '8px',
-    },
-    step: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '16px',
-        flex: 1,
-    },
-    stepIconWrapper: {
-        width: '72px',
-        height: '72px',
-        borderRadius: '50%',
-        backgroundColor: 'var(--color-white)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: 'var(--shadow-sm)',
-    },
-    stepTitle: {
-        fontSize: '15px',
-        fontWeight: 600,
-        color: 'var(--color-text-main)',
-        margin: 0,
-        textAlign: 'center',
-        wordBreak: 'keep-all',
-    },
-    stepArrow: {
-        color: '#cbd5e1',
-        fontSize: '20px',
     },
     formContainer: {
         borderTop: '2px solid #334155',
@@ -298,9 +223,9 @@ const styles = {
     },
     formLabel: {
         flex: '0 0 160px',
-        fontSize: '15px',
+        fontSize: '17px',
         fontWeight: 600,
-        color: '#334155',
+        color: 'var(--color-text-main)',
     },
     required: {
         color: '#ef4444',
@@ -308,45 +233,53 @@ const styles = {
     },
     formInput: {
         flex: 1,
-        padding: '12px 16px',
+        padding: '14px 16px',
         border: '1px solid #cbd5e1',
-        borderRadius: '4px',
-        fontSize: '15px',
+        borderRadius: '8px',
+        fontSize: '17px',
         width: '100%',
         boxSizing: 'border-box',
-        transition: 'border-color 0.2s',
+        transition: 'all 0.2s',
+        backgroundColor: '#f8fafc',
+        color: '#1e293b',
     },
     formTextarea: {
         flex: 1,
         padding: '16px',
         border: '1px solid #cbd5e1',
-        borderRadius: '4px',
-        fontSize: '15px',
+        borderRadius: '8px',
+        fontSize: '17px',
         minHeight: '160px',
         width: '100%',
         boxSizing: 'border-box',
         resize: 'vertical',
+        transition: 'all 0.2s',
+        backgroundColor: '#f8fafc',
+        color: '#1e293b',
+        fontFamily: 'inherit',
     },
     privacySection: {
         marginTop: '50px',
     },
     privacyTitle: {
-        fontSize: '18px',
+        fontSize: '20px',
         fontWeight: 700,
         color: 'var(--color-text-main)',
         marginBottom: '16px',
     },
     privacyBox: {
-        backgroundColor: '#f8fafc',
+        backgroundColor: '#ffffff',
         border: '1px solid #cbd5e1',
-        padding: '24px',
-        height: '150px',
-        overflowY: 'auto',
-        fontSize: '14px',
-        lineHeight: 1.6,
+        padding: '24px 32px',
+        minHeight: '180px',
+        height: 'auto',
+        overflowY: 'hidden',
+        fontSize: '16px',
+        lineHeight: 1.7,
         color: '#475569',
-        borderRadius: '4px',
+        borderRadius: '8px',
         marginBottom: '16px',
+        boxShadow: '0 4px 15px -3px rgba(15, 44, 89, 0.05)',
     },
     privacyList: {
         paddingLeft: '20px',
@@ -364,7 +297,7 @@ const styles = {
         cursor: 'pointer',
     },
     checkboxLabel: {
-        fontSize: '15px',
+        fontSize: '17px',
         fontWeight: 600,
         color: '#334155',
         cursor: 'pointer',
@@ -378,24 +311,18 @@ const styles = {
         backgroundColor: 'var(--color-primary)',
         color: 'var(--color-white)',
         border: 'none',
-        borderRadius: '4px',
-        padding: '18px 60px',
+        borderRadius: '8px',
+        padding: '16px 48px',
         fontSize: '18px',
         fontWeight: 700,
         transition: 'all 0.2s',
+        display: 'inline-block',
     }
 };
 
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
   @media (max-width: 768px) {
-    div[style*="justifyContent: 'space-between'"] {
-      flex-direction: column;
-      gap: 20px;
-    }
-    div[class*="stepArrow"] {
-      transform: rotate(90deg);
-    }
     div[style*="borderBottom: '1px solid #e2e8f0'"] {
       flex-direction: column;
       align-items: flex-start;

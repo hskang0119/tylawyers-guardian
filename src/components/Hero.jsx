@@ -57,14 +57,14 @@ const styles = {
         textAlign: 'center',
     },
     subtitle: {
-        fontSize: '14px',
+        fontSize: '16px',
         color: 'rgba(255, 255, 255, 0.9)',
         marginBottom: '12px',
         fontWeight: 400,
         letterSpacing: '1px',
     },
     title: {
-        fontSize: '44px',
+        fontSize: '46px',
         fontWeight: 600,
         margin: '0 0 24px 0',
         color: '#ffffff',
