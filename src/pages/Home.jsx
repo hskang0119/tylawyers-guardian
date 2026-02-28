@@ -183,7 +183,7 @@ const Home = () => {
                                 </div>
                             </form>
                             <ul className="action-subtitle-bottom">
-                                <li>고객사(기관)의 통제 범위 내에 있거나 업무관련성이 있는 영역에서의 인권침해 행위를 대상으로 합니다.</li>
+                                <li>고객사와 업무관련성이 있는 영역에서의 인권침해 행위를 대상으로 합니다.</li>
                                 <li>고객사(기관)을 입력해 주세요.</li>
                             </ul>
                         </div>
@@ -245,7 +245,7 @@ const Home = () => {
                                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#64748b', fontSize: '1.07rem', lineHeight: 1.7 }}>
                                     <li style={{ marginBottom: '8px' }}><strong>신고 방식의 자율성:</strong> 신고자의 의사에 따라 기명 또는 무기명(익명) 접수를 자유롭게 선택할 수 있습니다.</li>
                                     <li style={{ marginBottom: '8px' }}><strong>철저한 보안 기술 적용:</strong> IP 추적 방지 기술과 데이터 암호화(End-to-End Encryption) 프로세스를 통해 신고자의 접속 기록과 상담 내용이 외부로 유출되는 것을 원천 차단합니다.</li>
-                                    <li><strong>접근 권한 제한:</strong> 지정된 담당 변호사 외에는 누구도 신고 내용에 접근할 수 없도록 독립된 보안 서버에서 관리됩니다.</li>
+                                    <li><strong>접근 권한 제한:</strong> 지정된 담당자 외에는 누구도 신고 내용에 접근할 수 없도록 독립된 보안 서버에서 관리됩니다.</li>
                                 </ul>
                             </div>
                         </div>

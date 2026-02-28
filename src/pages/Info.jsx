@@ -62,7 +62,7 @@ const Info = () => {
                                     <ul style={styles.methodList}>
                                         <li style={styles.methodListItem}>
                                             <ChevronRight size={18} style={styles.methodBullet} />
-                                            <span>피해자 외에도 직장내성희롱, 직장내괴롭힘, 기타 인권 침해를 목격하거나 그 사실을 알게 된 자는 누구든지 그 사실을 신고할 수 있습니다. <br /><span style={styles.textSmall}>(근로기준법 제76조의 3 제1항, 남녀고용평등법 제76조의 3 제1항)</span></span>
+                                            <span>피해자 외에도 직장 내 성희롱, 직장 내 괴롭힘, 기타 인권침해 사실을 알게 된 사람은 누구든지 그 사실을 신고할 수 있습니다. <br /><span style={styles.textSmall}>(근로기준법 제76조의 3 제1항, 남녀고용평등법 제76조의 3 제1항)</span></span>
                                         </li>
                                         <li style={styles.methodListItem}>
                                             <ChevronRight size={18} style={styles.methodBullet} />
@@ -83,7 +83,7 @@ const Info = () => {
                                     <ul style={styles.methodList}>
                                         <li style={styles.methodListItem}>
                                             <ChevronRight size={18} style={styles.methodBullet} />
-                                            <span>고객사(기관)의 통제 범위 내에 있는 것으로 인정되거나 업무관련성이 있는 영역에서 고객사(기관) 구성원이 가해자 또는 피해자인 인권침해 행위</span>
+                                            <span>고객사와 업무관련성이 있는 영역에서 고객사(기관) 구성원이 가해자 또는 피해자인 인권침해 행위</span>
                                         </li>
                                     </ul>
 
@@ -194,8 +194,8 @@ const Info = () => {
                                         <div style={styles.typeCard}>
                                             <h4 style={styles.typeTitle}>기명신고</h4>
                                             <ul style={styles.nestedList}>
-                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자 정보를 드러내고 신고하는 방법으로 빠른 신고접수 및 사후처리가 가능합니다.</span></li>
-                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자의 신원은 고객사(기관) 담당자에게 접수되나, <strong>신고자의 신원은 관련법에 따라 보호됩니다.</strong></span></li>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자 정보를 밝히고 신고하는 방법으로 빠른 신고접수 및 사후처리가 가능합니다.</span></li>
+                                                <li style={styles.nestedListItem}><span style={styles.listDot}>•</span> <span>신고자의 신원은 고객사(기관) 담당자에게 전달되나, <strong>신고자의 신원은 관련법에 따라 보호됩니다.</strong></span></li>
                                             </ul>
                                         </div>
                                         <div style={styles.typeCard}>
@@ -210,121 +210,122 @@ const Info = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
             )}
 
             {/* Incident Processing Procedure Section (처리절차) */}
-            {activeTab === 'procedure' && (
-                <section id="procedure" style={styles.procedureSection}>
-                    <div className="container" style={styles.procedureContainer}>
-                        <div style={styles.procedureHeader}>
-                            <h2 style={{ fontSize: '20px', color: 'var(--color-primary)', fontWeight: 700, marginBottom: '16px' }}>사건처리절차</h2>
-                            <h3 style={styles.procedureMainTitle}>신고 접수된 사건은 다음과 같이 처리됩니다.</h3>
-                            <p style={styles.procedureSubtitle}>
-                                외부 독립 기관의 전문적인 대응으로 더욱 빠르고 공정한 처리가 가능합니다. 하단의 세부 진행 절차를 확인해 주세요.
-                            </p>
-                        </div>
+            {
+                activeTab === 'procedure' && (
+                    <section id="procedure" style={styles.procedureSection}>
+                        <div className="container" style={styles.procedureContainer}>
+                            <div style={styles.procedureHeader}>
+                                <h2 style={{ fontSize: '20px', color: 'var(--color-primary)', fontWeight: 700, marginBottom: '16px' }}>사건처리절차</h2>
+                                <h3 style={styles.procedureMainTitle}>신고 접수된 사건은 다음과 같이 처리됩니다.</h3>
+                                <p style={styles.procedureSubtitle}>
+                                    외부 독립 기관의 전문적인 대응으로 더욱 빠르고 공정한 처리가 가능합니다. 하단의 세부 진행 절차를 확인해 주세요.
+                                </p>
+                            </div>
 
-                        {/* Procedure Flowchart */}
-                        <div style={styles.flowchartWrapper}>
-                            <div style={styles.flowchartRow}>
-                                {[
-                                    { id: 1, title: '신고접수', icon: <FileEdit size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                    { id: 2, title: '기초조사', icon: <FileSearch size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                    { id: 3, title: '심층조사', icon: <Users size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                    { id: 4, title: '결과보고', icon: <ClipboardCheck size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                    { id: 5, title: '구제조치', icon: <Shield size={32} color="var(--color-primary)" strokeWidth={1.8} /> },
-                                ].map((step, index) => (
-                                    <React.Fragment key={step.id}>
-                                        <div style={styles.flowStep}>
-                                            <div style={styles.flowIconBox}>
-                                                {step.icon}
+                            {/* Procedure Flowchart */}
+                            <div style={styles.flowchartWrapper}>
+                                <div style={styles.flowchartRow}>
+                                    {[
+                                        { id: 1, title: '신고접수', icon: <FileEdit size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
+                                        { id: 2, title: '기초조사', icon: <FileSearch size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
+                                        { id: 3, title: '심층조사', icon: <Users size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
+                                        { id: 4, title: '결과보고', icon: <ClipboardCheck size={36} color="var(--color-primary)" strokeWidth={1.8} /> },
+                                        { id: 5, title: '구제조치', icon: <Shield size={32} color="var(--color-primary)" strokeWidth={1.8} /> },
+                                    ].map((step, index) => (
+                                        <React.Fragment key={step.id}>
+                                            <div style={styles.flowStep}>
+                                                <div style={styles.flowIconBox}>
+                                                    {step.icon}
+                                                </div>
+                                                <span style={styles.flowStepTitle}>{step.title}</span>
                                             </div>
-                                            <span style={styles.flowStepTitle}>{step.title}</span>
-                                        </div>
-                                        {index < 4 && (
-                                            <div style={styles.flowArrowBox}>
-                                                <ChevronRight size={32} color="#0f172a" strokeWidth={2} />
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                ))}
+                                            {index < 4 && (
+                                                <div style={styles.flowArrowBox}>
+                                                    <ChevronRight size={32} color="#0f172a" strokeWidth={2} />
+                                                </div>
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Step Details */}
-                        <div style={styles.stepDetailsGrid}>
-                            {/* 1 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>01</span>
-                                    <h3 style={styles.stepDetailTitle}>신고접수</h3>
+                            {/* Step Details */}
+                            <div style={styles.stepDetailsGrid}>
+                                {/* 1 */}
+                                <div style={styles.stepDetailCard}>
+                                    <div style={styles.stepDetailLeft}>
+                                        <span style={styles.stepDetailNumber}>01</span>
+                                        <h3 style={styles.stepDetailTitle}>신고접수</h3>
+                                    </div>
+                                    <div style={styles.stepDetailRight}>
+                                        <ul style={styles.stepDetailList}>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> IP 추적 방지 및 암호화 기술을 통해 신고자의 익명성을 완벽히 보장합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 접수 즉시 고유 번호가 발급되며, 이를 통해 언제든 진행 상황을 안전하게 확인할 수 있습니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> IP 추적 방지 및 암호화 기술을 통해 신고자의 익명성을 완벽히 보장합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 접수 즉시 고유 번호가 발급되며, 이를 통해 언제든 진행 상황을 안전하게 확인할 수 있습니다.</li>
-                                    </ul>
+                                {/* 2 */}
+                                <div style={styles.stepDetailCard}>
+                                    <div style={styles.stepDetailLeft}>
+                                        <span style={styles.stepDetailNumber}>02</span>
+                                        <h3 style={styles.stepDetailTitle}>기초조사</h3>
+                                    </div>
+                                    <div style={styles.stepDetailRight}>
+                                        <ul style={styles.stepDetailList}>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 전담 변호사가 접수된 내용을 바탕으로 신속하게 관련 법령 및 사내 규정 위반 여부를 1차 검토합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 추가 증거가 필요하거나 보완이 필요한 경우, 신고인과 안전하게 소통합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 기초조사결과 인권침해 신고가 아닌 일반 민원이거나, 신고내용 자체로 인권침해가 인정되지 않는 경우 신고인과 고객사에 통보 후 종결될 수 있습니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 기초조사결과 심층조사가 필요하다고 인정되는 경우 신고인과 고객사에 통보 후 심층조사 절차를 진행합니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            {/* 2 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>02</span>
-                                    <h3 style={styles.stepDetailTitle}>기초조사</h3>
+                                {/* 3 */}
+                                <div style={styles.stepDetailCard}>
+                                    <div style={styles.stepDetailLeft}>
+                                        <span style={styles.stepDetailNumber}>03</span>
+                                        <h3 style={styles.stepDetailTitle}>심층조사</h3>
+                                    </div>
+                                    <div style={styles.stepDetailRight}>
+                                        <ul style={styles.stepDetailList}>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 전담변호사가 직접 관련자 문답 및 물적 증거 분석을 수행합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 조사 전 과정에서 피해자 보호를 최우선으로 하며, 피조사자의 방어권 또한 공정하게 보장합니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 전담 변호사가 접수된 내용을 바탕으로 신속하게 관련 법령 및 사내 규정 위반 여부를 1차 검토합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 추가 증거가 필요하거나 보완이 필요한 경우, 신고인과 안전하게 소통합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 기초조사결과 인권침해 신고가 아닌 일반 민원이거나, 신고내용 자체로 인권침해가 인정되지 않는 경우 신고인과 고객사에 통보 후 종결될 수 있습니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 기초조사결과 심층조사가 필요하다고 인정되는 경우 신고인과 고객사에 통보 후 심층조사 절차를 진행합니다.</li>
-                                    </ul>
+                                {/* 4 */}
+                                <div style={styles.stepDetailCard}>
+                                    <div style={styles.stepDetailLeft}>
+                                        <span style={styles.stepDetailNumber}>04</span>
+                                        <h3 style={styles.stepDetailTitle}>결과보고</h3>
+                                    </div>
+                                    <div style={styles.stepDetailRight}>
+                                        <ul style={styles.stepDetailList}>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 수집된 증거와 진술을 종합하여 인권침해 여부에 대한 조사결과보고서를 작성합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 작성된 보고서는 보안이 유지된 상태로 사내 규정에 따라 징계위원회 등에 전달되어 의사결정의 자료가 됩니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            {/* 3 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>03</span>
-                                    <h3 style={styles.stepDetailTitle}>심층조사</h3>
-                                </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 전담변호사가 직접 관련자 문답 및 물적 증거 분석을 수행합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 조사 전 과정에서 피해자 보호를 최우선으로 하며, 피조사자의 방어권 또한 공정하게 보장합니다.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {/* 4 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>04</span>
-                                    <h3 style={styles.stepDetailTitle}>결과보고</h3>
-                                </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 수집된 증거와 진술을 종합하여 사건 성립 여부에 대한 최종 법률 의견서를 작성합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 작성된 보고서는 보안이 유지된 상태로 의사결정권자에게 전달되어 합리적인 판단의 근거가 됩니다.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {/* 5 */}
-                            <div style={styles.stepDetailCard}>
-                                <div style={styles.stepDetailLeft}>
-                                    <span style={styles.stepDetailNumber}>05</span>
-                                    <h3 style={styles.stepDetailTitle}>구제조치</h3>
-                                </div>
-                                <div style={styles.stepDetailRight}>
-                                    <ul style={styles.stepDetailList}>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 보고된 결과를 바탕으로 고객사는 징계위원회 개최, 배치전환 등 적절한 조치를 취합니다.</li>
-                                        <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 당 법무법인은 조치 과정이 적법하고 공정하게 이루어질 수 있도록 자문을 제공합니다.</li>
-                                    </ul>
+                                {/* 5 */}
+                                <div style={styles.stepDetailCard}>
+                                    <div style={styles.stepDetailLeft}>
+                                        <span style={styles.stepDetailNumber}>05</span>
+                                        <h3 style={styles.stepDetailTitle}>구제조치</h3>
+                                    </div>
+                                    <div style={styles.stepDetailRight}>
+                                        <ul style={styles.stepDetailList}>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 조사결과보고서를 바탕으로 고객사는 징계위원회, 근무지 전환 등 필요한 조치를 취합니다.</li>
+                                            <li style={styles.stepDetailListItem}><span style={styles.listDot}>•</span> 당 법무법인은 조치 과정이 적법하고 공정하게 이루어질 수 있도록 자문을 제공합니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            )
+                    </section>
+                )
             }
 
             {/* FAQ Section (자주묻는질문) */}

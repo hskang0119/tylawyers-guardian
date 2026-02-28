@@ -399,7 +399,7 @@ const Report = () => {
                                 <ul style={{ ...styles.cardInfoList, color: '#475569', marginTop: '24px', paddingLeft: '12px', boxSizing: 'border-box' }}>
                                     <li style={styles.cardInfoListItem}>
                                         <span style={{ position: 'absolute', left: 0, top: 0, fontWeight: 'bold' }}>&middot;</span>
-                                        고객사(기관)의 통제 범위 내에 있거나 업무관련성이 있는 영역에서의 인권침해 행위를 대상으로 합니다.
+                                        고객사와 업무관련성이 있는 영역에서의 인권침해 행위를 대상으로 합니다.
                                     </li>
                                     <li style={styles.cardInfoListItem}>
                                         <span style={{ position: 'absolute', left: 0, top: 0, fontWeight: 'bold' }}>&middot;</span>
