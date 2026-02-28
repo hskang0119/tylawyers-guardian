@@ -1,38 +1,90 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
+import { FileText, MessageSquare, PieChart, BarChart2, Activity } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({
-        newReports: 0,
-        reviewingReports: 0,
-        newInquiries: 0
+        reports: {
+            total: 0,
+            byStatus: {
+                received: 0,
+                investigating: 0,
+                completed: 0
+            },
+            byType: {
+                sexualHarassment: 0,
+                harassment: 0,
+                corruption: 0,
+                others: 0
+            }
+        },
+        inquiries: {
+            total: 0,
+            unread: 0,
+            read: 0
+        }
     });
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                // Fetch new reports count
-                const { count: newReportsCount } = await supabase
+                // Fetch reports data
+                const { data: reportsData, error: reportsError } = await supabase
                     .from('reports')
-                    .select('*', { count: 'exact', head: true })
-                    .eq('status', 'RECEIVED');
+                    .select('status, report_type');
 
-                // Fetch reviewing reports count
-                const { count: reviewingCount } = await supabase
-                    .from('reports')
-                    .select('*', { count: 'exact', head: true })
-                    .in('status', ['REVIEWING', 'INVESTIGATING']);
+                if (reportsError) throw reportsError;
 
-                // Fetch new inquiries count
-                const { count: newInquiriesCount } = await supabase
+                // Group reports
+                let rStatus = { received: 0, investigating: 0, completed: 0 };
+                let rType = { sexualHarassment: 0, harassment: 0, corruption: 0, others: 0 };
+
+                reportsData.forEach(r => {
+                    // Status grouping
+                    if (r.status === 'RECEIVED') rStatus.received++;
+                    else if (['COMPLETED'].includes(r.status)) rStatus.completed++;
+                    else rStatus.investigating++; // Anything else (reviewing, investigating, etc.)
+
+                    // Type grouping (handle both English legacy keys and Korean strings)
+                    const type = r.report_type;
+                    if (type === 'sexual_harassment' || type === '성희롱 / 성폭력' || type === '직장내 성희롱' || type === 'corruption') {
+                        // Note: older bug saved sexual harassment as corruption for a while, so grouping all historical ones here as requested
+                        rType.sexualHarassment++;
+                    } else if (type === 'harassment' || type === '직장내 괴롭힘' || type === '직장 내 괴롭힘') {
+                        rType.harassment++;
+                    } else if (type === '기타 인권침해' || type === '부패 / 비리') {
+                        rType.corruption++;
+                    } else {
+                        rType.others++;
+                    }
+                });
+
+                // Fetch inquiries data
+                const { data: inquiriesData, error: inquiriesError } = await supabase
                     .from('inquiries')
-                    .select('*', { count: 'exact', head: true })
-                    .eq('status', 'UNREAD');
+                    .select('status');
+
+                if (inquiriesError) throw inquiriesError;
+
+                let iUnread = 0;
+                let iRead = 0;
+
+                inquiriesData.forEach(i => {
+                    if (i.status === 'UNREAD') iUnread++;
+                    else iRead++;
+                });
 
                 setStats({
-                    newReports: newReportsCount || 0,
-                    reviewingReports: reviewingCount || 0,
-                    newInquiries: newInquiriesCount || 0
+                    reports: {
+                        total: reportsData.length,
+                        byStatus: rStatus,
+                        byType: rType
+                    },
+                    inquiries: {
+                        total: inquiriesData.length,
+                        unread: iUnread,
+                        read: iRead
+                    }
                 });
             } catch (error) {
                 console.error('Error fetching stats:', error);
@@ -49,20 +101,81 @@ const AdminDashboard = () => {
                 <p style={styles.subtitle}>TY Lawyers Guardian 시스템 운영 개요</p>
             </div>
 
-            <div style={styles.statsGrid}>
-                <div style={styles.statCard}>
-                    <h3 style={styles.cardTitle}>신규 접수</h3>
-                    <p style={styles.cardNumber}>{stats.newReports}</p>
+            {/* Reports Section */}
+            <div style={styles.section}>
+                <div style={styles.sectionHeader}>
+                    <FileText size={20} color="#1e3a8a" />
+                    <h2 style={styles.sectionTitle}>신고 접수 현황 (총 {stats.reports.total}건)</h2>
                 </div>
-                <div style={styles.statCard}>
-                    <h3 style={styles.cardTitle}>검토 및 조사 중</h3>
-                    <p style={styles.cardNumber}>{stats.reviewingReports}</p>
-                </div>
-                <div style={styles.statCard}>
-                    <h3 style={styles.cardTitle}>신규 문의</h3>
-                    <p style={styles.cardNumber}>{stats.newInquiries}</p>
+
+                <div style={styles.reportsGrid}>
+                    {/* Status Breakdown */}
+                    <div style={styles.card}>
+                        <div style={styles.cardHeader}>
+                            <Activity size={18} color="#64748b" />
+                            <h3 style={styles.cardTitle}>진행단계별</h3>
+                        </div>
+                        <div style={styles.statsRow}>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>신규 접수 (대기)</span>
+                                <span style={{ ...styles.statValue, color: '#b45309' }}>{stats.reports.byStatus.received}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>조사 진행 중</span>
+                                <span style={{ ...styles.statValue, color: '#1d4ed8' }}>{stats.reports.byStatus.investigating}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>처리 완료</span>
+                                <span style={{ ...styles.statValue, color: '#15803d' }}>{stats.reports.byStatus.completed}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Type Breakdown */}
+                    <div style={styles.card}>
+                        <div style={styles.cardHeader}>
+                            <PieChart size={18} color="#64748b" />
+                            <h3 style={styles.cardTitle}>신고유형별</h3>
+                        </div>
+                        <div style={styles.statsRow}>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>직장내 성희롱</span>
+                                <span style={styles.statValue}>{stats.reports.byType.sexualHarassment}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>직장내 괴롭힘</span>
+                                <span style={styles.statValue}>{stats.reports.byType.harassment}</span>
+                            </div>
+                            <div style={styles.statItem}>
+                                <span style={styles.statLabel}>기타 인권침해</span>
+                                <span style={styles.statValue}>{stats.reports.byType.corruption}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            {/* Inquiries Section */}
+            <div style={styles.section}>
+                <div style={styles.sectionHeader}>
+                    <MessageSquare size={20} color="#1e3a8a" />
+                    <h2 style={styles.sectionTitle}>도입 문의 현황 (총 {stats.inquiries.total}건)</h2>
+                </div>
+
+                <div style={styles.card}>
+                    <div style={styles.statsRow}>
+                        <div style={styles.statItem}>
+                            <span style={styles.statLabel}>신규 문의 (미확인)</span>
+                            <span style={{ ...styles.statValue, color: '#b91c1c' }}>{stats.inquiries.unread}</span>
+                        </div>
+                        <div style={styles.statItem}>
+                            <span style={styles.statLabel}>확인 완료</span>
+                            <span style={{ ...styles.statValue, color: '#475569' }}>{stats.inquiries.read}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };
@@ -70,6 +183,8 @@ const AdminDashboard = () => {
 const styles = {
     container: {
         padding: '40px',
+        backgroundColor: '#f8fafc',
+        minHeight: '100%',
     },
     header: {
         marginBottom: '40px',
@@ -85,28 +200,75 @@ const styles = {
         color: '#64748b',
         margin: 0,
     },
-    statsGrid: {
+    section: {
+        marginBottom: '40px',
+    },
+    sectionHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        marginBottom: '20px',
+        borderBottom: '2px solid #e2e8f0',
+        paddingBottom: '12px',
+    },
+    sectionTitle: {
+        fontSize: '20px',
+        fontWeight: 700,
+        color: '#1e3a8a',
+        margin: 0,
+    },
+    reportsGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
         gap: '24px',
     },
-    statCard: {
+    card: {
         backgroundColor: '#fff',
         padding: '24px',
         borderRadius: '12px',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+        boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
         border: '1px solid #e2e8f0',
     },
-    cardTitle: {
-        fontSize: '15px',
-        color: '#64748b',
-        fontWeight: 600,
-        margin: '0 0 12px 0',
+    cardHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        marginBottom: '20px',
     },
-    cardNumber: {
-        fontSize: '36px',
+    cardTitle: {
+        fontSize: '16px',
+        color: '#334155',
+        fontWeight: 600,
+        margin: 0,
+    },
+    statsRow: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '16px',
+    },
+    statItem: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        flex: 1,
+        minWidth: '100px',
+        backgroundColor: '#f8fafc',
+        padding: '16px',
+        borderRadius: '8px',
+        border: '1px solid #f1f5f9',
+    },
+    statLabel: {
+        fontSize: '14px',
+        color: '#64748b',
+        fontWeight: 500,
+        marginBottom: '8px',
+        textAlign: 'center',
+    },
+    statValue: {
+        fontSize: '32px',
         fontWeight: 700,
-        color: '#1e3a8a',
+        color: '#0f172a',
         margin: 0,
     }
 };

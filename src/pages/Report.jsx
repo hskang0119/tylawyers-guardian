@@ -10,7 +10,7 @@ import { supabase } from '../supabaseClient';
 const Report = () => {
     const location = useLocation();
     const [currentStep, setCurrentStep] = useState(1);
-    const [reportType, setReportType] = useState('성희롱 / 성폭력'); // 성희롱, 괴롭힘, 기타
+    const [reportType, setReportType] = useState('직장내 성희롱'); // 성희롱, 괴롭힘, 기타
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [ticketNumber, setTicketNumber] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -530,8 +530,8 @@ const Report = () => {
                                             <div style={{ ...styles.inputGroup, marginTop: '12px', gridColumn: '1 / -1' }}>
                                                 <SectionBoxHeader title="신고유형" required />
                                                 <div style={{ display: 'flex', gap: '20px', marginTop: '4px', flexWrap: 'wrap' }}>
-                                                    <label className="hover-radio-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', cursor: 'pointer', fontSize: '18px', fontWeight: 600, color: reportType === '성희롱 / 성폭력' ? 'var(--color-primary)' : '#475569', backgroundColor: reportType === '성희롱 / 성폭력' ? '#eff6ff' : '#f8fafc', border: reportType === '성희롱 / 성폭력' ? '2px solid var(--color-primary)' : '1px solid #cbd5e1', borderRadius: '8px', padding: '16px 0', flex: 1, transition: 'all 0.2s' }}>
-                                                        <input type="radio" name="reportType" value="성희롱 / 성폭력" checked={reportType === '성희롱 / 성폭력'} onChange={(e) => setReportType(e.target.value)} style={{ width: '22px', height: '22px', accentColor: 'var(--color-primary)' }} /> 성희롱/성폭력
+                                                    <label className="hover-radio-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', cursor: 'pointer', fontSize: '18px', fontWeight: 600, color: reportType === '직장내 성희롱' ? 'var(--color-primary)' : '#475569', backgroundColor: reportType === '직장내 성희롱' ? '#eff6ff' : '#f8fafc', border: reportType === '직장내 성희롱' ? '2px solid var(--color-primary)' : '1px solid #cbd5e1', borderRadius: '8px', padding: '16px 0', flex: 1, transition: 'all 0.2s' }}>
+                                                        <input type="radio" name="reportType" value="직장내 성희롱" checked={reportType === '직장내 성희롱'} onChange={(e) => setReportType(e.target.value)} style={{ width: '22px', height: '22px', accentColor: 'var(--color-primary)' }} /> 직장내 성희롱
                                                     </label>
                                                     <label className="hover-radio-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', cursor: 'pointer', fontSize: '18px', fontWeight: 600, color: reportType === '직장내 괴롭힘' ? 'var(--color-primary)' : '#475569', backgroundColor: reportType === '직장내 괴롭힘' ? '#eff6ff' : '#f8fafc', border: reportType === '직장내 괴롭힘' ? '2px solid var(--color-primary)' : '1px solid #cbd5e1', borderRadius: '8px', padding: '16px 0', flex: 1, transition: 'all 0.2s' }}>
                                                         <input type="radio" name="reportType" value="직장내 괴롭힘" checked={reportType === '직장내 괴롭힘'} onChange={(e) => setReportType(e.target.value)} style={{ width: '22px', height: '22px', accentColor: 'var(--color-primary)' }} /> 직장내 괴롭힘

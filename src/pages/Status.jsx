@@ -88,12 +88,12 @@ const Status = () => {
             const formattedUpdatedDate = `${updatedDate.getFullYear()}-${String(updatedDate.getMonth() + 1).padStart(2, '0')}-${String(updatedDate.getDate()).padStart(2, '0')} ${String(updatedDate.getHours()).padStart(2, '0')}:${String(updatedDate.getMinutes()).padStart(2, '0')}`;
 
             let displayType = '기타 인권침해';
-            if (data.report_type === 'sexual_harassment') displayType = '성희롱 / 성폭력';
+            if (data.report_type === 'sexual_harassment') displayType = '직장내 성희롱';
             else if (data.report_type === 'harassment') displayType = '직장 내 괴롭힘';
             else if (data.report_type === 'corruption') displayType = '부패 / 비리';
             // It could also just be Korean string directly now depending on DB updates, so we fallback
-            if (['성희롱 / 성폭력', '직장내 괴롭힘', '기타 인권침해'].includes(data.report_type)) {
-                displayType = data.report_type;
+            if (['성희롱 / 성폭력', '직장내 성희롱', '직장내 괴롭힘', '기타 인권침해'].includes(data.report_type)) {
+                displayType = data.report_type === '성희롱 / 성폭력' ? '직장내 성희롱' : data.report_type;
             }
 
             setStatusData({

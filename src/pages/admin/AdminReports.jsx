@@ -66,7 +66,7 @@ const AdminReports = () => {
     const getTypeLabel = (type) => {
         // Fallback mapping for older reports saved with English keys
         const typeMap = {
-            'corruption': '성희롱 / 성폭력',
+            'corruption': '직장내 성희롱', // Historical bug fallback
             'harassment': '직장내 괴롭힘',
             'sexual_harassment': '기타 인권침해'
         };
