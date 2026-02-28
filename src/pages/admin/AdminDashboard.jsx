@@ -94,7 +94,7 @@ const AdminDashboard = () => {
                 let iRead = 0;
 
                 inquiriesData.forEach(i => {
-                    if (i.status === 'UNREAD') iUnread++;
+                    if (i.status === 'UNREAD' || !i.status) iUnread++;
                     else iRead++;
                 });
 

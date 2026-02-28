@@ -45,6 +45,7 @@ const Partner = () => {
                         email: formData.email,
                         phone: formData.phone,
                         content: formData.content,
+                        status: 'UNREAD', // Explicitly set status to prevent null values
                     }
                 ]);
 
