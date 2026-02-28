@@ -47,12 +47,38 @@ const Status = () => {
                 return;
             }
 
-            // Map database status to step index
+            // Map database status to flowchart step index
             let stepIndex = 0;
-            if (data.status === 'RECEIVED') stepIndex = 0;
-            else if (data.status === 'REVIEWING') stepIndex = 1;
-            else if (data.status === 'INVESTIGATING') stepIndex = 2;
-            else if (data.status === 'COMPLETED') stepIndex = 3;
+            switch (data.status) {
+                case 'RECEIVED': stepIndex = 0; break;
+                case 'BASIC_REVIEWING':
+                case 'BASIC_COMPLETED':
+                case 'REVIEWING': // Legacy
+                    stepIndex = 1; break;
+                case 'DEEP_INVESTIGATING':
+                case 'DEEP_COMPLETED':
+                case 'INVESTIGATING': // Legacy
+                    stepIndex = 2; break;
+                case 'BASIC_REPORTED':
+                case 'DEEP_REPORTED':
+                    stepIndex = 3; break;
+                case 'COMPLETED': stepIndex = 4; break;
+                default: stepIndex = 0; break;
+            }
+
+            const statusMap = {
+                'RECEIVED': '신고접수완료',
+                'BASIC_REVIEWING': '기초조사 중',
+                'BASIC_COMPLETED': '기초조사 완료',
+                'BASIC_REPORTED': '기초조사 결과 보고',
+                'DEEP_INVESTIGATING': '심층조사 중',
+                'DEEP_COMPLETED': '심층조사 완료',
+                'DEEP_REPORTED': '심층조사 결과 보고',
+                'COMPLETED': '구제조치 완료',
+                'REVIEWING': '기초조사 중', // Legacy
+                'INVESTIGATING': '심층조사 중' // Legacy
+            };
+            const detailedStatusText = statusMap[data.status] || data.status;
 
             // Format date
             const createdDate = new Date(data.created_at);
@@ -65,13 +91,18 @@ const Status = () => {
             if (data.report_type === 'sexual_harassment') displayType = '성희롱 / 성폭력';
             else if (data.report_type === 'harassment') displayType = '직장 내 괴롭힘';
             else if (data.report_type === 'corruption') displayType = '부패 / 비리';
+            // It could also just be Korean string directly now depending on DB updates, so we fallback
+            if (['성희롱 / 성폭력', '직장내 괴롭힘', '기타 인권침해'].includes(data.report_type)) {
+                displayType = data.report_type;
+            }
 
             setStatusData({
                 receiptNumber: data.ticket_number,
                 date: formattedDate,
                 updatedDate: formattedUpdatedDate,
                 type: displayType,
-                currentStep: stepIndex, // 0: 접수, 1: 검토중, 2: 조사중, 3: 완료
+                detailedStatus: detailedStatusText,
+                currentStep: stepIndex, // 0 to 4
                 lawyerFeedback: data.lawyer_feedback || '신고가 정상적으로 접수되었으며, 현재 담당 변호사 배정 및 초기 검토를 대기 중입니다. 검토가 시작되면 이곳에 변호사의 의견이 업데이트됩니다.'
             });
 
@@ -96,10 +127,11 @@ const Status = () => {
     };
 
     const steps = [
-        { label: '접수 완료', desc: '신고가 정상 접수됨' },
-        { label: '검토 중', desc: '변호사 1차 내용 확인' },
-        { label: '조사/처리 중', desc: '사실 관계 파악 및 조치' },
-        { label: '처리 완료', desc: '최종 결과 안내' },
+        { label: '신고접수', desc: '신고사항 파악' },
+        { label: '기초조사', desc: '기초 사실관계 조사' },
+        { label: '심층조사', desc: '상세 진술 및 증거 확보' },
+        { label: '결과보고', desc: '조사 결과 점검/보고' },
+        { label: '구제조치', desc: '최종 조치 및 결과 안내' },
     ];
 
     return (
@@ -150,7 +182,10 @@ const Status = () => {
                         <div style={styles.summaryCard}>
                             <div style={styles.summaryHeader}>
                                 <div>
-                                    <span style={styles.badge}>{statusData.type}</span>
+                                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                        <span style={styles.typeBadge}>{statusData.type}</span>
+                                        <span style={styles.statusBadge}>{statusData.detailedStatus}</span>
+                                    </div>
                                     <h2 style={styles.receiptText}>{statusData.receiptNumber}</h2>
                                 </div>
                                 <div style={styles.dateLabel}>접수일: {statusData.date}</div>
@@ -320,13 +355,23 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'flex-start',
     },
-    badge: {
+    typeBadge: {
+        display: 'inline-block',
+        backgroundColor: '#e0e7ff',
+        color: '#4f46e5',
+        fontSize: '15px',
+        fontWeight: 600,
+        padding: '6px 14px',
+        borderRadius: '20px',
+        marginBottom: '12px',
+    },
+    statusBadge: {
         display: 'inline-block',
         backgroundColor: 'var(--color-accent)',
         color: 'var(--color-primary)',
         fontSize: '15px',
         fontWeight: 600,
-        padding: '4px 12px',
+        padding: '6px 14px',
         borderRadius: '20px',
         marginBottom: '12px',
     },

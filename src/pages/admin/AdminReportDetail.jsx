@@ -147,10 +147,17 @@ const AdminReportDetail = () => {
                                 onChange={(e) => setStatus(e.target.value)}
                                 style={styles.select}
                             >
-                                <option value="RECEIVED">접수 완료</option>
-                                <option value="REVIEWING">검토 중 (변호사 확인)</option>
-                                <option value="INVESTIGATING">조사 및 처리 중</option>
-                                <option value="COMPLETED">처리 완료</option>
+                                <option value="RECEIVED">신고접수완료</option>
+                                <option value="BASIC_REVIEWING">기초조사 중</option>
+                                <option value="BASIC_COMPLETED">기초조사 완료</option>
+                                <option value="BASIC_REPORTED">기초조사 결과 보고</option>
+                                <option value="DEEP_INVESTIGATING">심층조사 중</option>
+                                <option value="DEEP_COMPLETED">심층조사 완료</option>
+                                <option value="DEEP_REPORTED">심층조사 결과 보고</option>
+                                <option value="COMPLETED">구제조치 완료</option>
+                                {/* Keep legacy options hidden if not selected, but visible if currently selected */}
+                                {status === 'REVIEWING' && <option value="REVIEWING">기초조사 중 (구버전)</option>}
+                                {status === 'INVESTIGATING' && <option value="INVESTIGATING">심층조사 중 (구버전)</option>}
                             </select>
                         </div>
 

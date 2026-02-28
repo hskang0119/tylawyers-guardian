@@ -33,10 +33,16 @@ const AdminReports = () => {
 
     const getStatusText = (status) => {
         const statusMap = {
-            'RECEIVED': '접수 완료',
-            'REVIEWING': '검토 중',
-            'INVESTIGATING': '조사/처리 중',
-            'COMPLETED': '처리 완료'
+            'RECEIVED': '신고접수완료',
+            'BASIC_REVIEWING': '기초조사 중',
+            'BASIC_COMPLETED': '기초조사 완료',
+            'BASIC_REPORTED': '기초조사 결과 보고',
+            'DEEP_INVESTIGATING': '심층조사 중',
+            'DEEP_COMPLETED': '심층조사 완료',
+            'DEEP_REPORTED': '심층조사 결과 보고',
+            'COMPLETED': '구제조치 완료',
+            'REVIEWING': '기초조사 중', // Legacy fallback
+            'INVESTIGATING': '심층조사 중' // Legacy fallback
         };
         return statusMap[status] || status;
     };
@@ -44,9 +50,15 @@ const AdminReports = () => {
     const getStatusStyle = (status) => {
         const styles = {
             'RECEIVED': { bg: '#fef08a', color: '#854d0e' },
+            'BASIC_REVIEWING': { bg: '#bfdbfe', color: '#1e40af' },
+            'BASIC_COMPLETED': { bg: '#93c5fd', color: '#1e3a8a' },
+            'BASIC_REPORTED': { bg: '#ddd6fe', color: '#5b21b6' },
+            'DEEP_INVESTIGATING': { bg: '#fed7aa', color: '#9a3412' },
+            'DEEP_COMPLETED': { bg: '#fdba74', color: '#7c2d12' },
+            'DEEP_REPORTED': { bg: '#e9d5ff', color: '#6b21a8' },
+            'COMPLETED': { bg: '#bbf7d0', color: '#166534' },
             'REVIEWING': { bg: '#bfdbfe', color: '#1e40af' },
-            'INVESTIGATING': { bg: '#fed7aa', color: '#9a3412' },
-            'COMPLETED': { bg: '#bbf7d0', color: '#166534' }
+            'INVESTIGATING': { bg: '#fed7aa', color: '#9a3412' }
         };
         return styles[status] || { bg: '#f1f5f9', color: '#475569' };
     };
