@@ -394,6 +394,8 @@ const styles = {
     },
     // Page Navigator
     navigatorWrapper: {
+        position: 'relative',
+        zIndex: 10,
         marginTop: '-38px', // Overlaps Hero
         display: 'flex',
         justifyContent: 'center',
