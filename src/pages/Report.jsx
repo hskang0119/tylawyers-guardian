@@ -8,6 +8,8 @@ import Footer from '../components/Footer';
 import { supabase } from '../supabaseClient';
 
 const Report = () => {
+    const location = useLocation();
+    const [currentStep, setCurrentStep] = useState(1);
     const [reportType, setReportType] = useState('성희롱 / 성폭력'); // 성희롱, 괴롭힘, 기타
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [ticketNumber, setTicketNumber] = useState('');
